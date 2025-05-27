@@ -1,135 +1,179 @@
-/* Estilos básicos - já existentes */
+/* Importação de fonte do Google Fonts (opcional, mas melhora a estética) */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+    /* Cores */
+    --primary-color: #4CAF50; /* Verde principal */
+    --secondary-color: #388E3C; /* Verde mais escuro para destaque */
+    --text-color: #333;
+    --light-text-color: #666;
+    --bg-color: #f8f9fa; /* Fundo mais claro */
+    --card-bg-color: #ffffff; /* Fundo do container principal */
+    --border-color: #e0e0e0; /* Cor da borda */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* Fontes */
+    --heading-font: 'Merriweather', serif; /* Fonte para títulos */
+    --body-font: 'Open Sans', sans-serif; /* Fonte para o corpo do texto */
+
+    /* Espaçamento */
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--body-font);
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
+/* Header */
 header {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
-    padding: 1rem 0;
+    padding: var(--spacing-lg) var(--spacing-md);
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra mais suave */
 }
 
+header h1 {
+    font-family: var(--heading-font);
+    font-size: 2.2rem; /* Ajuste para desktop */
+    margin: 0;
+}
+
+/* Main Container */
 main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    max-width: 900px; /* Aumenta um pouco a largura máxima para telas maiores */
+    margin: var(--spacing-md) auto; /* Margem padrão para desktop */
+    padding: var(--spacing-lg);
+    background-color: var(--card-bg-color);
+    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra aprimorada */
+    border-radius: 12px; /* Bordas mais arredondadas */
 }
 
+/* Controls (Dropdowns) */
 .controls {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    /* Adiciona flex-wrap para permitir que os itens quebrem para a próxima linha em telas pequenas */
-    flex-wrap: wrap; /* NOVO */
+    flex-direction: column; /* Padrão para mobile: um abaixo do outro */
+    gap: var(--spacing-md); /* Espaçamento entre os dropdowns */
+    margin-bottom: var(--spacing-lg);
 }
 
 select {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 15px; /* Aumenta um pouco o padding */
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Bordas mais arredondadas */
     font-size: 1rem;
     cursor: pointer;
-    background-color: white;
-    /* Ajusta largura para melhor visualização em telas pequenas */
-    width: 100%; /* NOVO */
-    max-width: 350px; /* NOVO - Limita a largura em telas maiores */
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    appearance: none; /* Remove a seta padrão do select em alguns navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Seta customizada */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    width: 100%; /* Ocupa 100% da largura disponível */
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Borda destacada ao focar */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Sombra suave ao focar */
 }
 
 select:disabled {
-    background-color: #e9e9e9;
+    background-color: #eceff1; /* Cor mais suave para disabled */
     cursor: not-allowed;
+    color: var(--light-text-color);
 }
 
+/* Bible Content */
 #bible-content {
-    border-top: 1px solid #eee;
-    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-lg);
 }
 
 #bible-content p {
-    margin-bottom: 10px;
-    text-indent: 1.5em;
-}
-
-#bible-content p:first-child {
-    margin-top: 0;
+    margin-bottom: var(--spacing-sm); /* Espaçamento menor entre versículos */
+    text-indent: 1.2em; /* Recuo ligeiramente menor para mobile */
+    font-size: 1.05rem; /* Fonte um pouco maior para melhor legibilidade */
 }
 
 .verse-number {
-    font-weight: bold;
-    margin-right: 5px;
-    color: #4CAF50;
+    font-weight: 600; /* Mais negrito */
+    margin-right: 6px; /* Espaçamento ajustado */
+    color: var(--secondary-color); /* Cor de destaque para números */
+    font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
 }
 
 .initial-message {
     text-align: center;
     font-style: italic;
-    color: #666;
+    color: var(--light-text-color);
+    padding: var(--spacing-lg);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    background-color: #f0f4f7;
+    margin-top: var(--spacing-lg);
 }
 
+.error-message {
+    text-align: center;
+    color: #d32f2f; /* Cor de erro */
+    padding: var(--spacing-lg);
+    border: 1px solid #ef9a9a;
+    border-radius: 8px;
+    background-color: #ffebee;
+    margin-top: var(--spacing-lg);
+    font-weight: bold;
+}
+
+/* Footer */
 footer {
     text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
-    color: #777;
-    font-size: 0.9em;
-    border-top: 1px solid #eee;
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-lg);
+    color: var(--light-text-color);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border-color);
 }
 
-/* --- Media Queries para Telas Menores --- */
+/* --- Media Queries para Telas Maiores (Desktop) --- */
 
-@media (max-width: 600px) {
-    main {
-        margin: 10px; /* Reduz a margem lateral em telas menores */
-        padding: 15px; /* Reduz o padding interno */
+@media (min-width: 601px) {
+    header h1 {
+        font-size: 2.8rem; /* Aumenta o tamanho da fonte para desktop */
     }
 
     .controls {
-        flex-direction: column; /* Coloca os dropdowns um abaixo do outro */
-        gap: 10px; /* Reduz o espaçamento entre eles */
+        flex-direction: row; /* Volta para lado a lado */
+        justify-content: center; /* Centraliza no desktop */
+        gap: var(--spacing-lg); /* Mais espaçamento */
     }
 
     select {
-        width: calc(100% - 20px); /* Ocupa quase 100% da largura, descontando o padding */
-        box-sizing: border-box; /* Garante que padding e borda não aumentem a largura total */
-        font-size: 0.95rem; /* Ajusta o tamanho da fonte para caber melhor */
-    }
-
-    header h1 {
-        font-size: 1.8rem; /* Reduz o tamanho da fonte do título */
+        width: auto; /* Deixa o select definir sua própria largura */
+        min-width: 200px; /* Garante uma largura mínima */
+        max-width: 280px; /* Limita a largura em telas muito grandes */
     }
 
     #bible-content p {
-        font-size: 0.95rem; /* Ajusta o tamanho da fonte do texto da Bíblia */
-        text-indent: 1em; /* Reduz o recuo da primeira linha */
-    }
-
-    .verse-number {
-        font-size: 0.9em; /* Ajusta o tamanho da fonte do número do versículo */
+        font-size: 1.1rem; /* Fonte ligeiramente maior para desktop */
+        text-indent: 2em; /* Recuo maior para desktop */
     }
 }
 
-@media (max-width: 400px) {
+/* Ajuste final para telas muito grandes se necessário */
+@media (min-width: 900px) {
     main {
-        margin: 5px; /* Margem ainda menor para telas muito pequenas */
-        padding: 10px;
-    }
-
-    header h1 {
-        font-size: 1.6rem;
-    }
-
-    #bible-content p {
-        font-size: 0.9rem;
+        padding: 40px 50px; /* Mais padding em telas muito grandes */
     }
 }
