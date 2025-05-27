@@ -1,179 +1,185 @@
-/* Importação de fonte do Google Fonts (opcional, mas melhora a estética) */
+/* Importação de fonte do Google Fonts para uma estética aprimorada */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
+/* Definição de variáveis CSS para facilitar a manutenção e personalização */
 :root {
     /* Cores */
-    --primary-color: #4CAF50; /* Verde principal */
-    --secondary-color: #388E3C; /* Verde mais escuro para destaque */
-    --text-color: #333;
-    --light-text-color: #666;
-    --bg-color: #f8f9fa; /* Fundo mais claro */
-    --card-bg-color: #ffffff; /* Fundo do container principal */
-    --border-color: #e0e0e0; /* Cor da borda */
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --primary-color: #4CAF50; /* Verde principal para destaque */
+    --secondary-color: #388E3C; /* Verde mais escuro para elementos secundários */
+    --text-color: #333; /* Cor padrão para o texto principal */
+    --light-text-color: #666; /* Cor para texto mais suave, como rodapé */
+    --bg-color: #f8f9fa; /* Cor de fundo da página */
+    --card-bg-color: #ffffff; /* Cor de fundo para o contêiner principal (cartão) */
+    --border-color: #e0e0e0; /* Cor para bordas e divisores */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
 
     /* Fontes */
-    --heading-font: 'Merriweather', serif; /* Fonte para títulos */
-    --body-font: 'Open Sans', sans-serif; /* Fonte para o corpo do texto */
+    --heading-font: 'Merriweather', serif; /* Fonte serifada para títulos */
+    --body-font: 'Open Sans', sans-serif; /* Fonte sans-serif para o corpo do texto */
 
     /* Espaçamento */
-    --spacing-sm: 8px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
+    --spacing-sm: 8px; /* Espaçamento pequeno */
+    --spacing-md: 16px; /* Espaçamento médio */
+    --spacing-lg: 24px; /* Espaçamento grande */
 }
 
+/* Estilos globais para o corpo da página */
 body {
-    font-family: var(--body-font);
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+    font-family: var(--body-font); /* Aplica a fonte padrão */
+    line-height: 1.6; /* Altura da linha para melhor legibilidade */
+    margin: 0; /* Remove margem padrão do body */
+    padding: 0; /* Remove padding padrão do body */
+    background-color: var(--bg-color); /* Aplica a cor de fundo definida */
+    color: var(--text-color); /* Aplica a cor do texto padrão */
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada em dispositivos móveis */
 }
 
-/* Header */
+/* Estilos para o cabeçalho do aplicativo */
 header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: var(--spacing-lg) var(--spacing-md);
-    text-align: center;
-    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra mais suave */
+    background-color: var(--primary-color); /* Cor de fundo verde */
+    color: white; /* Cor do texto branca */
+    padding: var(--spacing-lg) var(--spacing-md); /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave para elevação */
 }
 
 header h1 {
-    font-family: var(--heading-font);
-    font-size: 2.2rem; /* Ajuste para desktop */
-    margin: 0;
+    font-family: var(--heading-font); /* Aplica a fonte do título */
+    font-size: 2.2rem; /* Tamanho da fonte para o título (base para mobile) */
+    margin: 0; /* Remove margem padrão do h1 */
 }
 
-/* Main Container */
+/* Estilos para o contêiner principal do conteúdo */
 main {
-    max-width: 900px; /* Aumenta um pouco a largura máxima para telas maiores */
-    margin: var(--spacing-md) auto; /* Margem padrão para desktop */
-    padding: var(--spacing-lg);
-    background-color: var(--card-bg-color);
+    max-width: 900px; /* Largura máxima para telas maiores */
+    margin: var(--spacing-md) auto; /* Centraliza o contêiner com margem superior/inferior */
+    padding: var(--spacing-lg); /* Espaçamento interno */
+    background-color: var(--card-bg-color); /* Fundo branco para o "cartão" */
     box-shadow: 0 4px 15px var(--shadow-color); /* Sombra aprimorada */
-    border-radius: 12px; /* Bordas mais arredondadas */
+    border-radius: 12px; /* Bordas arredondadas para um visual moderno */
 }
 
-/* Controls (Dropdowns) */
+/* Estilos para os controles de seleção (dropdowns) */
 .controls {
     display: flex;
-    flex-direction: column; /* Padrão para mobile: um abaixo do outro */
+    flex-direction: column; /* Organiza os itens em coluna (um abaixo do outro) em todas as telas */
     gap: var(--spacing-md); /* Espaçamento entre os dropdowns */
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg); /* Margem inferior para separar do conteúdo da Bíblia */
 }
 
 select {
-    padding: 12px 15px; /* Aumenta um pouco o padding */
-    border: 1px solid var(--border-color);
-    border-radius: 8px; /* Bordas mais arredondadas */
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: var(--card-bg-color);
-    color: var(--text-color);
-    appearance: none; /* Remove a seta padrão do select em alguns navegadores */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Seta customizada */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px;
-    width: 100%; /* Ocupa 100% da largura disponível */
+    padding: 12px 15px; /* Aumenta o padding para facilitar o toque e visualização */
+    border: 1px solid var(--border-color); /* Borda sutil */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho da fonte */
+    cursor: pointer; /* Indica que é clicável */
+    background-color: var(--card-bg-color); /* Fundo branco */
+    color: var(--text-color); /* Cor do texto */
+    appearance: none; /* Remove a seta padrão do navegador */
+    -webkit-appearance: none; /* Compatibilidade Webkit */
+    -moz-appearance: none; /* Compatibilidade Mozilla */
+    /* Seta customizada usando SVG em base64 */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat; /* Não repete a seta */
+    background-position: right 10px center; /* Posiciona a seta à direita */
+    background-size: 20px; /* Tamanho da seta */
+    width: 100%; /* Ocupa 100% da largura do contêiner */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
 }
 
 select:focus {
-    outline: none;
+    outline: none; /* Remove outline padrão ao focar */
     border-color: var(--primary-color); /* Borda destacada ao focar */
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Sombra suave ao focar */
 }
 
 select:disabled {
-    background-color: #eceff1; /* Cor mais suave para disabled */
-    cursor: not-allowed;
-    color: var(--light-text-color);
+    background-color: #eceff1; /* Cor mais suave para selects desabilitados */
+    cursor: not-allowed; /* Cursor de "não permitido" */
+    color: var(--light-text-color); /* Cor do texto mais clara */
 }
 
-/* Bible Content */
+/* Estilos para a área onde o conteúdo da Bíblia é exibido */
 #bible-content {
-    border-top: 1px solid var(--border-color);
-    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color); /* Linha divisória */
+    padding-top: var(--spacing-lg); /* Espaçamento acima do texto da Bíblia */
 }
 
 #bible-content p {
-    margin-bottom: var(--spacing-sm); /* Espaçamento menor entre versículos */
-    text-indent: 1.2em; /* Recuo ligeiramente menor para mobile */
-    font-size: 1.05rem; /* Fonte um pouco maior para melhor legibilidade */
+    margin-bottom: var(--spacing-sm); /* Espaçamento menor entre cada versículo */
+    text-indent: 1.2em; /* Recuo da primeira linha de cada versículo */
+    font-size: 1.05rem; /* Tamanho da fonte dos versículos para melhor legibilidade */
 }
 
 .verse-number {
-    font-weight: 600; /* Mais negrito */
-    margin-right: 6px; /* Espaçamento ajustado */
-    color: var(--secondary-color); /* Cor de destaque para números */
+    font-weight: 600; /* Texto do número do versículo mais negrito */
+    margin-right: 6px; /* Espaçamento entre o número e o texto do versículo */
+    color: var(--secondary-color); /* Cor de destaque para os números dos versículos */
     font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
 }
 
+/* Estilos para a mensagem inicial quando nada está selecionado */
 .initial-message {
     text-align: center;
     font-style: italic;
     color: var(--light-text-color);
     padding: var(--spacing-lg);
-    border: 1px dashed var(--border-color);
+    border: 1px dashed var(--border-color); /* Borda pontilhada para distinção */
     border-radius: 8px;
-    background-color: #f0f4f7;
+    background-color: #f0f4f7; /* Fundo suave */
     margin-top: var(--spacing-lg);
 }
 
+/* Estilos para mensagens de erro */
 .error-message {
     text-align: center;
-    color: #d32f2f; /* Cor de erro */
+    color: #d32f2f; /* Cor vermelha para erro */
     padding: var(--spacing-lg);
-    border: 1px solid #ef9a9a;
+    border: 1px solid #ef9a9a; /* Borda mais forte para erro */
     border-radius: 8px;
-    background-color: #ffebee;
+    background-color: #ffebee; /* Fundo avermelhado */
     margin-top: var(--spacing-lg);
     font-weight: bold;
 }
 
-/* Footer */
+/* Estilos para o rodapé do aplicativo */
 footer {
     text-align: center;
     padding: var(--spacing-lg) 0;
     margin-top: var(--spacing-lg);
     color: var(--light-text-color);
     font-size: 0.85em;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color); /* Linha divisória */
 }
 
 /* --- Media Queries para Telas Maiores (Desktop) --- */
-
+/* Estes estilos são aplicados quando a largura da tela é no mínimo 601px */
 @media (min-width: 601px) {
     header h1 {
-        font-size: 2.8rem; /* Aumenta o tamanho da fonte para desktop */
+        font-size: 2.8rem; /* Aumenta o tamanho do título para desktop */
     }
 
     .controls {
-        flex-direction: row; /* Volta para lado a lado */
-        justify-content: center; /* Centraliza no desktop */
-        gap: var(--spacing-lg); /* Mais espaçamento */
+        /* Os dropdowns já estão em coluna por padrão.
+           Centraliza o bloco de dropdowns no layout de desktop. */
+        justify-content: center;
     }
 
     select {
-        width: auto; /* Deixa o select definir sua própria largura */
-        min-width: 200px; /* Garante uma largura mínima */
-        max-width: 280px; /* Limita a largura em telas muito grandes */
+        /* Mantém 100% da largura do contêiner de controle,
+           mas limita a largura máxima individual para não ficarem gigantes. */
+        max-width: 300px;
     }
 
     #bible-content p {
-        font-size: 1.1rem; /* Fonte ligeiramente maior para desktop */
-        text-indent: 2em; /* Recuo maior para desktop */
+        font-size: 1.1rem; /* Fonte ligeiramente maior para o texto da Bíblia no desktop */
+        text-indent: 2em; /* Recuo maior da primeira linha para desktop */
     }
 }
 
-/* Ajuste final para telas muito grandes se necessário */
+/* Ajuste final para telas muito grandes (ex: monitores ultra-wide) */
 @media (min-width: 900px) {
     main {
-        padding: 40px 50px; /* Mais padding em telas muito grandes */
+        padding: 40px 50px; /* Aumenta o padding interno do contêiner principal */
     }
 }
