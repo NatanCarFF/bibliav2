@@ -36,11 +36,18 @@ body {
 
 /* Estilos para o cabeçalho do aplicativo */
 header {
-    background-color: var(--primary-color); /* Cor de fundo verde */
+    /* Fundo de imagem de céu */
+    background-image: url('ceu.png'); /* Caminho relativo para a imagem na mesma pasta */
+    background-size: cover; /* Faz a imagem cobrir toda a área do header */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    background-color: #6a9acb; /* Cor de fundo de fallback caso a imagem não carregue */
+
     color: white; /* Cor do texto branca */
     padding: var(--spacing-lg) var(--spacing-md); /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
     box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave para elevação */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* Sombra para o texto para melhor contraste */
 }
 
 header h1 {
@@ -142,7 +149,7 @@ select:disabled {
     font-weight: bold;
 }
 
-/* Estilos para o rodapé do aplicativo */
+/* Footer */
 footer {
     text-align: center;
     padding: var(--spacing-lg) 0;
@@ -160,15 +167,11 @@ footer {
     }
 
     .controls {
-        /* Os dropdowns já estão em coluna por padrão.
-           Centraliza o bloco de dropdowns no layout de desktop. */
-        justify-content: center;
+        justify-content: center; /* Centraliza o bloco de dropdowns no layout de desktop */
     }
 
     select {
-        /* Mantém 100% da largura do contêiner de controle,
-           mas limita a largura máxima individual para não ficarem gigantes. */
-        max-width: 300px;
+        max-width: 300px; /* Limita a largura máxima individual de cada select no desktop */
     }
 
     #bible-content p {
