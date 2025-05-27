@@ -1,3 +1,4 @@
+/* Estilos básicos - já existentes */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -29,6 +30,8 @@ main {
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
+    /* Adiciona flex-wrap para permitir que os itens quebrem para a próxima linha em telas pequenas */
+    flex-wrap: wrap; /* NOVO */
 }
 
 select {
@@ -38,6 +41,9 @@ select {
     font-size: 1rem;
     cursor: pointer;
     background-color: white;
+    /* Ajusta largura para melhor visualização em telas pequenas */
+    width: 100%; /* NOVO */
+    max-width: 350px; /* NOVO - Limita a largura em telas maiores */
 }
 
 select:disabled {
@@ -52,7 +58,7 @@ select:disabled {
 
 #bible-content p {
     margin-bottom: 10px;
-    text-indent: 1.5em; /* Para dar um leve recuo na primeira linha do parágrafo */
+    text-indent: 1.5em;
 }
 
 #bible-content p:first-child {
@@ -78,4 +84,52 @@ footer {
     color: #777;
     font-size: 0.9em;
     border-top: 1px solid #eee;
+}
+
+/* --- Media Queries para Telas Menores --- */
+
+@media (max-width: 600px) {
+    main {
+        margin: 10px; /* Reduz a margem lateral em telas menores */
+        padding: 15px; /* Reduz o padding interno */
+    }
+
+    .controls {
+        flex-direction: column; /* Coloca os dropdowns um abaixo do outro */
+        gap: 10px; /* Reduz o espaçamento entre eles */
+    }
+
+    select {
+        width: calc(100% - 20px); /* Ocupa quase 100% da largura, descontando o padding */
+        box-sizing: border-box; /* Garante que padding e borda não aumentem a largura total */
+        font-size: 0.95rem; /* Ajusta o tamanho da fonte para caber melhor */
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* Reduz o tamanho da fonte do título */
+    }
+
+    #bible-content p {
+        font-size: 0.95rem; /* Ajusta o tamanho da fonte do texto da Bíblia */
+        text-indent: 1em; /* Reduz o recuo da primeira linha */
+    }
+
+    .verse-number {
+        font-size: 0.9em; /* Ajusta o tamanho da fonte do número do versículo */
+    }
+}
+
+@media (max-width: 400px) {
+    main {
+        margin: 5px; /* Margem ainda menor para telas muito pequenas */
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    #bible-content p {
+        font-size: 0.9rem;
+    }
 }
