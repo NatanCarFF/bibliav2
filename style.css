@@ -12,6 +12,7 @@
     --card-bg-color: #ffffff; /* Cor de fundo para o contêiner principal (cartão) */
     --border-color: #e0e0e0; /* Cor para bordas e divisores */
     --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
+    --highlight-color: #fffacd; /* Amarelo claro para o destaque (cor de marca-texto) */
 
     /* Fontes */
     --heading-font: 'Merriweather', serif; /* Fonte serifada para títulos */
@@ -66,11 +67,11 @@ main {
     border-radius: 12px; /* Bordas arredondadas para um visual moderno */
 }
 
-/* Estilos para os controles de seleção (dropdowns) */
+/* Estilos para os controles de seleção (dropdowns e botão) */
 .controls {
     display: flex;
     flex-direction: column; /* Organiza os itens em coluna (um abaixo do outro) em todas as telas */
-    gap: var(--spacing-md); /* Espaçamento entre os dropdowns */
+    gap: var(--spacing-md); /* Espaçamento entre os dropdowns e o botão */
     margin-bottom: var(--spacing-lg); /* Margem inferior para separar do conteúdo da Bíblia */
 }
 
@@ -106,16 +107,42 @@ select:disabled {
     color: var(--light-text-color); /* Cor do texto mais clara */
 }
 
+/* Estilos para o botão de limpar destaques */
+#clear-highlights-btn {
+    padding: 12px 15px;
+    background-color: #f44336; /* Vermelho para ação de limpar */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#clear-highlights-btn:hover {
+    background-color: #d32f2f; /* Tom mais escuro no hover */
+}
+
+#clear-highlights-btn:active {
+    background-color: #c62828;
+}
+
+
 /* Estilos para a área onde o conteúdo da Bíblia é exibido */
 #bible-content {
     border-top: 1px solid var(--border-color); /* Linha divisória */
     padding-top: var(--spacing-lg); /* Espaçamento acima do texto da Bíblia */
 }
 
-#bible-content p {
+/* Garante que os parágrafos de versículos tenham margem para o destaque */
+#bible-content p.verse {
     margin-bottom: var(--spacing-sm); /* Espaçamento menor entre cada versículo */
     text-indent: 1.2em; /* Recuo da primeira linha de cada versículo */
     font-size: 1.05rem; /* Tamanho da fonte dos versículos para melhor legibilidade */
+    position: relative; /* Necessário para posicionamento relativo de elementos internos se necessário */
+    padding-right: 5px; /* Adiciona um pequeno padding para evitar cortes no destaque */
 }
 
 .verse-number {
@@ -125,7 +152,16 @@ select:disabled {
     font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
 }
 
-/* Estilos para a mensagem inicial quando nada está selecionado */
+/* Estilo para o texto destacado (marca-texto) */
+.highlight {
+    background-color: var(--highlight-color); /* Cor amarela do marca-texto */
+    border-radius: 3px; /* Bordas ligeiramente arredondadas para o destaque */
+    padding: 1px 0; /* Pequeno padding para o destaque não grudar no texto */
+    box-shadow: 0 0 5px rgba(255, 250, 205, 0.5); /* Sombra suave para dar profundidade */
+}
+
+
+/* Estilos para a mensagem inicial quando nada está selecionado ou para a última leitura */
 .initial-message {
     text-align: center;
     font-style: italic;
@@ -167,14 +203,16 @@ footer {
     }
 
     .controls {
+        flex-direction: row; /* Volta a organizar em linha para desktop */
         justify-content: center; /* Centraliza o bloco de dropdowns no layout de desktop */
+        align-items: center; /* Alinha verticalmente os itens */
     }
 
-    select {
-        max-width: 300px; /* Limita a largura máxima individual de cada select no desktop */
+    select, #clear-highlights-btn { /* Aplica o mesmo limite de largura para selects e botão */
+        max-width: 300px; /* Limita a largura máxima individual de cada select/botão no desktop */
     }
 
-    #bible-content p {
+    #bible-content p.verse { /* Ajusta o seletor para pegar a classe .verse */
         font-size: 1.1rem; /* Fonte ligeiramente maior para o texto da Bíblia no desktop */
         text-indent: 2em; /* Recuo maior da primeira linha para desktop */
     }
