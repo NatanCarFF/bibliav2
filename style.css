@@ -13,6 +13,8 @@
     --border-color: #e0e0e0; /* Cor para bordas e divisores */
     --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
     --highlight-color: #fffacd; /* Amarelo claro para o destaque (cor de marca-texto) */
+    --highlighted-verse-bg: #fffacd; /* Cor de fundo para o versículo inteiro marcado */
+
 
     /* Fontes */
     --heading-font: 'Merriweather', serif; /* Fonte serifada para títulos */
@@ -136,28 +138,30 @@ select:disabled {
     padding-top: var(--spacing-lg); /* Espaçamento acima do texto da Bíblia */
 }
 
-/* Garante que os parágrafos de versículos tenham margem para o destaque */
+/* Estilo para cada versículo */
 #bible-content p.verse {
     margin-bottom: var(--spacing-sm); /* Espaçamento menor entre cada versículo */
     text-indent: 1.2em; /* Recuo da primeira linha de cada versículo */
     font-size: 1.05rem; /* Tamanho da fonte dos versículos para melhor legibilidade */
     position: relative; /* Necessário para posicionamento relativo de elementos internos se necessário */
-    padding-right: 5px; /* Adiciona um pequeno padding para evitar cortes no destaque */
+    padding: 5px; /* Adiciona um pequeno padding para o fundo de destaque */
+    cursor: pointer; /* Indica que o versículo é clicável */
+    border-radius: 4px; /* Pequenas bordas arredondadas para o fundo de destaque */
+    transition: background-color 0.2s ease-in-out; /* Transição suave para o destaque */
 }
+
+/* Estilo para o versículo inteiro quando marcado */
+.highlighted-verse {
+    background-color: var(--highlighted-verse-bg); /* Cor amarela do marca-texto */
+    box-shadow: 0 0 5px rgba(255, 250, 205, 0.5); /* Sombra suave para dar profundidade */
+}
+
 
 .verse-number {
     font-weight: 600; /* Texto do número do versículo mais negrito */
     margin-right: 6px; /* Espaçamento entre o número e o texto do versículo */
     color: var(--secondary-color); /* Cor de destaque para os números dos versículos */
     font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
-}
-
-/* Estilo para o texto destacado (marca-texto) */
-.highlight {
-    background-color: var(--highlight-color); /* Cor amarela do marca-texto */
-    border-radius: 3px; /* Bordas ligeiramente arredondadas para o destaque */
-    padding: 1px 0; /* Pequeno padding para o destaque não grudar no texto */
-    box-shadow: 0 0 5px rgba(255, 250, 205, 0.5); /* Sombra suave para dar profundidade */
 }
 
 
