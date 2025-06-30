@@ -20,6 +20,7 @@
     --body-font: 'Open Sans', sans-serif; /* Fonte sans-serif para o corpo do texto */
 
     /* Espaçamento */
+    --spacing-xs: 4px; /* Extra pequeno */
     --spacing-sm: 8px; /* Espaçamento pequeno */
     --spacing-md: 16px; /* Espaçamento médio */
     --spacing-lg: 24px; /* Espaçamento grande */
@@ -52,6 +53,7 @@ body {
     overflow-x: hidden; /* Evita rolagem horizontal indesejada em dispositivos móveis */
     font-size: var(--base-font-size); /* Aplica o tamanho base da fonte */
     transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para o tema */
+    -webkit-text-size-adjust: 100%; /* Prevents iOS from adjusting font size */
 }
 
 /* Estilos para o cabeçalho do aplicativo */
@@ -73,7 +75,7 @@ header {
 
 header h1 {
     font-family: var(--heading-font); /* Aplica a fonte do título */
-    font-size: 2.2rem; /* Tamanho da fonte para o título (base para mobile) */
+    font-size: 2rem; /* Adjusted for better mobile scaling */
     margin: 0; /* Remove margem padrão do h1 */
 }
 
@@ -81,7 +83,7 @@ header h1 {
 main {
     max-width: 900px; /* Largura máxima para telas maiores */
     margin: var(--spacing-md) auto; /* Centraliza o contêiner com margem superior/inferior */
-    padding: var(--spacing-lg); /* Espaçamento interno */
+    padding: var(--spacing-md); /* Adjusted padding for better mobile fit */
     background-color: var(--card-bg-color); /* Fundo branco para o "cartão" */
     box-shadow: 0 4px 15px var(--shadow-color); /* Sombra aprimorada */
     border-radius: 12px; /* Bordas arredondadas para um visual moderno */
@@ -98,6 +100,7 @@ main {
 
 select {
     padding: 12px 15px; /* Aumenta o padding para facilitar o toque e visualização */
+    min-height: 48px; /* Ensure sufficient touch target size */
     border: 1px solid var(--border-color); /* Borda sutil */
     border-radius: 8px; /* Bordas arredondadas */
     font-size: 1rem; /* Tamanho da fonte */
@@ -136,6 +139,7 @@ select:disabled {
 /* Estilos para o botão de limpar destaques e outros botões */
 button {
     padding: 12px 15px;
+    min-height: 48px; /* Ensure sufficient touch target size */
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -146,6 +150,9 @@ button {
     width: 100%;
     box-sizing: border-box;
     font-family: var(--body-font);
+    display: flex; /* Use flexbox for button content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
 }
 
 button:hover {
@@ -184,10 +191,12 @@ button:active {
 .settings label {
     font-size: 0.95rem;
     color: var(--text-color);
+    margin-top: var(--spacing-xs); /* Small margin for spacing */
 }
 
 .settings select, .settings button {
-    width: auto; /* Permite que os itens de configuração não ocupem 100% da largura */
+    width: 100%; /* Ensure full width on mobile for settings controls */
+    max-width: unset; /* Remove max-width for mobile settings */
     min-width: 150px; /* Garante uma largura mínima */
 }
 
@@ -206,7 +215,7 @@ button:active {
     text-indent: 1.2em; /* Recuo da primeira linha de cada versículo */
     font-size: 1em; /* Tamanho da fonte dos versículos para melhor legibilidade (em relação ao pai) */
     position: relative; /* Necessário para posicionamento relativo de elementos internos se necessário */
-    padding: 5px; /* Adiciona um pequeno padding para o fundo de destaque */
+    padding: 8px var(--spacing-sm); /* Adjusted padding for better touch area and readability */
     cursor: pointer; /* Indica que o versículo é clicável */
     border-radius: 4px; /* Pequenas bordas arredondadas para o fundo de destaque */
     transition: background-color 0.2s ease-in-out; /* Transição suave para o destaque */
@@ -268,8 +277,8 @@ body.dark-mode .error-message {
 /* Estilos para navegação de capítulo (anterior/próximo) */
 .chapter-navigation {
     display: flex;
-    justify-content: space-between;
-    gap: var(--spacing-md);
+    flex-direction: column; /* Stack buttons on mobile */
+    gap: var(--spacing-md); /* Space between buttons */
     margin-top: var(--spacing-lg);
     padding-top: var(--spacing-md);
     border-top: 1px solid var(--border-color);
@@ -277,7 +286,7 @@ body.dark-mode .error-message {
 }
 
 .chapter-navigation button {
-    width: 48%; /* Cada botão ocupa quase metade da largura */
+    width: 100%; /* Full width for each button on mobile */
 }
 
 .chapter-navigation button:disabled {
@@ -344,6 +353,10 @@ body.dark-mode .spinner {
         font-size: 2.8rem; /* Aumenta o tamanho do título para desktop */
     }
 
+    main {
+        padding: var(--spacing-lg); /* Restore larger padding for desktop */
+    }
+
     .controls {
         flex-direction: row; /* Volta a organizar em linha para desktop */
         justify-content: center; /* Centraliza o bloco de dropdowns no layout de desktop */
@@ -362,17 +375,23 @@ body.dark-mode .spinner {
     }
 
     .settings select, .settings button {
-        width: auto;
+        width: auto; /* Allow items to size naturally on desktop */
+        max-width: 200px; /* Example max-width for setting controls on desktop */
     }
 
 
     #bible-content p.verse { /* Ajusta o seletor para pegar a classe .verse */
         font-size: 1em; /* Ajustado para 1em novamente, para ser relativo ao base-font-size */
         text-indent: 2em; /* Recuo maior da primeira linha para desktop */
+        padding: 5px; /* Restore original padding for desktop */
+    }
+
+    .chapter-navigation {
+        flex-direction: row; /* Buttons side-by-side on desktop */
     }
 
     .chapter-navigation button {
-        width: auto; /* Permite que os botões se ajustem ao conteúdo */
+        width: auto; /* Allows buttons to adjust to content on desktop */
         padding-left: 30px;
         padding-right: 30px;
     }
