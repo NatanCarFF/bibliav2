@@ -213,7 +213,7 @@ button:active {
 }
 
 /* Estilo para o versículo inteiro quando marcado */
-.highlighted-verse {
+.highlighted { /* Esta classe foi corrigida para 'highlighted' */
     background-color: var(--highlighted-verse-bg); /* Cor amarela do marca-texto */
     box-shadow: 0 0 5px rgba(255, 250, 205, 0.5); /* Sombra suave para dar profundidade */
 }
