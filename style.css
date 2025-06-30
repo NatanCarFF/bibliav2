@@ -15,7 +15,6 @@
     --highlight-color: #fffacd; /* Amarelo claro para o destaque (cor de marca-texto) */
     --highlighted-verse-bg: #fffacd; /* Cor de fundo para o versículo inteiro marcado */
 
-
     /* Fontes */
     --heading-font: 'Merriweather', serif; /* Fonte serifada para títulos */
     --body-font: 'Open Sans', sans-serif; /* Fonte sans-serif para o corpo do texto */
@@ -24,7 +23,23 @@
     --spacing-sm: 8px; /* Espaçamento pequeno */
     --spacing-md: 16px; /* Espaçamento médio */
     --spacing-lg: 24px; /* Espaçamento grande */
+    --base-font-size: 1rem; /* Tamanho base da fonte, para escalonamento */
 }
+
+/* Tema Escuro */
+body.dark-mode {
+    --primary-color: #66bb6a;
+    --secondary-color: #4CAF50;
+    --text-color: #e0e0e0;
+    --light-text-color: #a0a0a0;
+    --bg-color: #212121;
+    --card-bg-color: #303030;
+    --border-color: #424242;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --highlight-color: #8B8000; /* Um amarelo mais escuro para o modo escuro */
+    --highlighted-verse-bg: #8B8000; /* Cor de fundo para o versículo inteiro marcado */
+}
+
 
 /* Estilos globais para o corpo da página */
 body {
@@ -35,6 +50,8 @@ body {
     background-color: var(--bg-color); /* Aplica a cor de fundo definida */
     color: var(--text-color); /* Aplica a cor do texto padrão */
     overflow-x: hidden; /* Evita rolagem horizontal indesejada em dispositivos móveis */
+    font-size: var(--base-font-size); /* Aplica o tamanho base da fonte */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para o tema */
 }
 
 /* Estilos para o cabeçalho do aplicativo */
@@ -51,6 +68,7 @@ header {
     text-align: center; /* Centraliza o texto */
     box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave para elevação */
     text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* Sombra para o texto para melhor contraste */
+    transition: box-shadow 0.3s ease; /* Transição para o tema */
 }
 
 header h1 {
@@ -67,6 +85,7 @@ main {
     background-color: var(--card-bg-color); /* Fundo branco para o "cartão" */
     box-shadow: 0 4px 15px var(--shadow-color); /* Sombra aprimorada */
     border-radius: 12px; /* Bordas arredondadas para um visual moderno */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição para o tema */
 }
 
 /* Estilos para os controles de seleção (dropdowns e botão) */
@@ -95,6 +114,11 @@ select {
     background-size: 20px; /* Tamanho da seta */
     width: 100%; /* Ocupa 100% da largura do contêiner */
     box-sizing: border-box; /* Inclui padding e borda na largura total */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Transição para o tema */
+}
+
+body.dark-mode select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23e0e0e0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Seta branca para dark mode */
 }
 
 select:focus {
@@ -109,18 +133,33 @@ select:disabled {
     color: var(--light-text-color); /* Cor do texto mais clara */
 }
 
-/* Estilos para o botão de limpar destaques */
-#clear-highlights-btn {
+/* Estilos para o botão de limpar destaques e outros botões */
+button {
     padding: 12px 15px;
-    background-color: #f44336; /* Vermelho para ação de limpar */
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
     width: 100%;
     box-sizing: border-box;
+    font-family: var(--body-font);
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+button:active {
+    background-color: #307a33;
+    transform: translateY(0);
+}
+
+#clear-highlights-btn {
+    background-color: #f44336; /* Vermelho para ação de limpar */
 }
 
 #clear-highlights-btn:hover {
@@ -131,18 +170,41 @@ select:disabled {
     background-color: #c62828;
 }
 
+/* Estilos para a área de configurações */
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    align-items: flex-start; /* Alinha à esquerda no mobile */
+}
+
+.settings label {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.settings select, .settings button {
+    width: auto; /* Permite que os itens de configuração não ocupem 100% da largura */
+    min-width: 150px; /* Garante uma largura mínima */
+}
+
 
 /* Estilos para a área onde o conteúdo da Bíblia é exibido */
 #bible-content {
     border-top: 1px solid var(--border-color); /* Linha divisória */
     padding-top: var(--spacing-lg); /* Espaçamento acima do texto da Bíblia */
+    font-size: var(--base-font-size); /* Aplica o tamanho base da fonte */
+    transition: border-top 0.3s ease; /* Transição para o tema */
 }
 
 /* Estilo para cada versículo */
 #bible-content p.verse {
     margin-bottom: var(--spacing-sm); /* Espaçamento menor entre cada versículo */
     text-indent: 1.2em; /* Recuo da primeira linha de cada versículo */
-    font-size: 1.05rem; /* Tamanho da fonte dos versículos para melhor legibilidade */
+    font-size: 1em; /* Tamanho da fonte dos versículos para melhor legibilidade (em relação ao pai) */
     position: relative; /* Necessário para posicionamento relativo de elementos internos se necessário */
     padding: 5px; /* Adiciona um pequeno padding para o fundo de destaque */
     cursor: pointer; /* Indica que o versículo é clicável */
@@ -162,6 +224,7 @@ select:disabled {
     margin-right: 6px; /* Espaçamento entre o número e o texto do versículo */
     color: var(--secondary-color); /* Cor de destaque para os números dos versículos */
     font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
+    transition: color 0.3s ease; /* Transição para o tema */
 }
 
 
@@ -175,6 +238,12 @@ select:disabled {
     border-radius: 8px;
     background-color: #f0f4f7; /* Fundo suave */
     margin-top: var(--spacing-lg);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transição para o tema */
+}
+
+body.dark-mode .initial-message {
+    background-color: #2a2a2a;
+    border-color: #424242;
 }
 
 /* Estilos para mensagens de erro */
@@ -187,7 +256,42 @@ select:disabled {
     background-color: #ffebee; /* Fundo avermelhado */
     margin-top: var(--spacing-lg);
     font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transição para o tema */
 }
+
+body.dark-mode .error-message {
+    background-color: #4f2929;
+    border-color: #7b4646;
+    color: #ffcccb;
+}
+
+/* Estilos para navegação de capítulo (anterior/próximo) */
+.chapter-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    transition: border-top 0.3s ease; /* Transição para o tema */
+}
+
+.chapter-navigation button {
+    width: 48%; /* Cada botão ocupa quase metade da largura */
+}
+
+.chapter-navigation button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #888888;
+    transform: none;
+}
+
+body.dark-mode .chapter-navigation button:disabled {
+    background-color: #424242;
+    color: #666666;
+}
+
 
 /* Footer */
 footer {
@@ -197,7 +301,41 @@ footer {
     color: var(--light-text-color);
     font-size: 0.85em;
     border-top: 1px solid var(--border-color); /* Linha divisória */
+    transition: color 0.3s ease, border-top 0.3s ease; /* Transição para o tema */
 }
+
+/* Loading Indicator */
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-sm);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+body.dark-mode .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid var(--primary-color);
+}
+
 
 /* --- Media Queries para Telas Maiores (Desktop) --- */
 /* Estes estilos são aplicados quando a largura da tela é no mínimo 601px */
@@ -216,9 +354,27 @@ footer {
         max-width: 300px; /* Limita a largura máxima individual de cada select/botão no desktop */
     }
 
+    .settings {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-lg);
+    }
+
+    .settings select, .settings button {
+        width: auto;
+    }
+
+
     #bible-content p.verse { /* Ajusta o seletor para pegar a classe .verse */
-        font-size: 1.1rem; /* Fonte ligeiramente maior para o texto da Bíblia no desktop */
+        font-size: 1em; /* Ajustado para 1em novamente, para ser relativo ao base-font-size */
         text-indent: 2em; /* Recuo maior da primeira linha para desktop */
+    }
+
+    .chapter-navigation button {
+        width: auto; /* Permite que os botões se ajustem ao conteúdo */
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 

@@ -20,9 +20,33 @@
             </select>
             <button id="clear-highlights-btn" style="display: none;">Limpar Destaques</button>
         </div>
+
+        <div class="settings">
+            <label for="font-size-select">Tamanho da Fonte:</label>
+            <select id="font-size-select">
+                <option value="1.0">Padrão</option>
+                <option value="1.1">Médio</option>
+                <option value="1.2">Grande</option>
+                <option value="1.3">Muito Grande</option>
+            </select>
+
+            <button id="theme-toggle-btn">Modo Escuro</button>
+        </div>
+
+        <div id="loading-indicator" class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Carregando Bíblia...</p>
+        </div>
+
         <div id="bible-content">
             <p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>
         </div>
+
+        <div class="chapter-navigation">
+            <button id="prev-chapter-btn" disabled>Capítulo Anterior</button>
+            <button id="next-chapter-btn" disabled>Próximo Capítulo</button>
+        </div>
+
         <div id="last-read-info" class="initial-message" style="margin-top: 20px;"></div>
     </main>
     <footer>
