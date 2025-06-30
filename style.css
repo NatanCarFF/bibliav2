@@ -165,18 +165,6 @@ button:active {
     transform: translateY(0);
 }
 
-#clear-highlights-btn {
-    background-color: #f44336; /* Vermelho para ação de limpar */
-}
-
-#clear-highlights-btn:hover {
-    background-color: #d32f2f; /* Tom mais escuro no hover */
-}
-
-#clear-highlights-btn:active {
-    background-color: #c62828;
-}
-
 /* Estilos para a área de configurações */
 .settings {
     display: flex;
@@ -225,6 +213,16 @@ button:active {
     width: 100%;
     box-sizing: border-box;
     font-family: var(--body-font);
+}
+
+.settings .icon-toggle-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.settings .icon-toggle-btn:active {
+    background-color: #307a33;
+    transform: translateY(0);
 }
 
 .settings .icon-toggle-btn .icon-light,
@@ -429,7 +427,7 @@ body.dark-mode .spinner {
         align-items: center; /* Alinha verticalmente os itens */
     }
 
-    select, #clear-highlights-btn { /* Aplica o mesmo limite de largura para selects e botão */
+    select { /* Aplica o mesmo limite de largura para selects (Limpar Destaques foi removido) */
         max-width: 300px; /* Limita a largura máxima individual de cada select/botão no desktop */
     }
 

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chapterSelect = document.getElementById('chapter-select');
     const bibleContent = document.getElementById('bible-content');
     const lastReadInfo = document.getElementById('last-read-info');
-    const clearHighlightsBtn = document.getElementById('clear-highlights-btn');
+    // const clearHighlightsBtn = document.getElementById('clear-highlights-btn'); // Removido
     const prevChapterBtn = document.getElementById('prev-chapter-btn');
     const nextChapterBtn = document.getElementById('next-chapter-btn');
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
@@ -31,13 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`Erro ao carregar biblia.json: ${response.statusText}`);
             }
-            bibleData = await response.json();
+            const data = await response.json();
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error("Dados da Bíblia inválidos ou vazios.");
+            }
+            bibleData = data; // Assign only after validation
             populateBookSelect();
             applySavedSettings(); // Apply settings after data is loaded
             checkLastReadChapter();
         } catch (error) {
             console.error('Erro ao carregar os dados da Bíblia:', error);
-            bibleContent.innerHTML = `<p class="error-message">Erro ao carregar a Bíblia. Tente novamente mais tarde.</p>`;
+            bibleContent.innerHTML = `<p class="error-message">Erro ao carregar a Bíblia: ${error.message}. Tente novamente mais tarde.</p>`;
         } finally {
             loadingIndicator.style.display = 'none'; // Esconde o spinner
         }
@@ -65,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
             chapterSelect.disabled = true;
-            clearHighlightsBtn.style.display = 'none';
+            // clearHighlightsBtn.style.display = 'none'; // Removido
             prevChapterBtn.disabled = true;
             nextChapterBtn.disabled = true;
         }
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayChapter(bookIndex, chapterIndex) {
         if (bookIndex === null || chapterIndex === null || !bibleData[bookIndex] || !bibleData[bookIndex].chapters[chapterIndex]) {
             bibleContent.innerHTML = '<p class="error-message">Capítulo não encontrado.</p>';
-            clearHighlightsBtn.style.display = 'none';
+            // clearHighlightsBtn.style.display = 'none'; // Removido
             return;
         }
 
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         bibleContent.innerHTML = contentHtml;
-        clearHighlightsBtn.style.display = 'block'; // Show clear highlights button when chapter is displayed
+        // clearHighlightsBtn.style.display = 'block'; // Removido
         updateNavigationButtons(bookIndex, chapterIndex);
     }
 
@@ -180,20 +184,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    clearHighlightsBtn.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja remover todos os destaques do capítulo atual?')) {
-            const currentChapterHighlights = new Set();
-            document.querySelectorAll('#bible-content .verse').forEach(verseElement => {
-                const highlightId = verseElement.dataset.highlightId;
-                if (highlights.has(highlightId)) {
-                    highlights.delete(highlightId);
-                    verseElement.classList.remove('highlighted');
-                }
-            });
-            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
-            alert('Destaques removidos do capítulo atual.');
-        }
-    });
+    // clearHighlightsBtn.addEventListener('click', () => { // Removido
+    //     if (confirm('Tem certeza que deseja remover todos os destaques do capítulo atual?')) {
+    //         const currentChapterHighlights = new Set();
+    //         document.querySelectorAll('#bible-content .verse').forEach(verseElement => {
+    //             const highlightId = verseElement.dataset.highlightId;
+    //             if (highlights.has(highlightId)) {
+    //                 highlights.delete(highlightId);
+    //                 verseElement.classList.remove('highlighted');
+    //             }
+    //         });
+    //         localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
+    //         alert('Destaques removidos do capítulo atual.');
+    //     }
+    // });
 
     // --- Funções de Última Leitura ---
 
