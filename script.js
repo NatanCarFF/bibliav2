@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
             bibleData = await response.json();
             populateBookSelect();
             loadLastReadChapter();
-            applySavedSettings(); // Aplica tema e tamanho da fonte salvos
+            applySavedSettings(); // Aplica as configurações salvas (tema e fonte)
         } catch (error) {
-            console.error('Falha ao carregar os dados da Bíblia:', error);
-            bibleContent.innerHTML = '<p class="error-message">Não foi possível carregar a Bíblia. Por favor, tente novamente mais tarde.</p>';
+            console.error('Erro ao carregar os dados da Bíblia:', error);
+            bibleContent.innerHTML = `<p class="error-message">Erro ao carregar a Bíblia. Por favor, tente novamente mais tarde.</p>`;
         } finally {
             loadingIndicator.style.display = 'none'; // Esconde o spinner
         }
@@ -46,57 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
         bibleData.forEach((book, index) => {
             const option = document.createElement('option');
             option.value = index;
-            option.textContent = book.name; // Usar book.name para o nome completo
+            option.textContent = book.abbrev;
             bookSelect.appendChild(option);
         });
     }
 
-    function saveLastReadChapter(bookIndex, chapterIndex) {
-        localStorage.setItem(LAST_READ_KEY, JSON.stringify({ book: bookIndex, chapter: chapterIndex }));
-        updateLastReadInfo(bookIndex, chapterIndex);
-    }
-
-    function loadLastReadChapter() {
-        const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
-        if (lastRead && bibleData[lastRead.book]) {
-            currentBookIndex = lastRead.book;
-            currentChapterIndex = lastRead.chapter;
-            bookSelect.value = currentBookIndex;
-
-            // Popula os capítulos para o livro da última leitura
-            populateChapterSelect(currentBookIndex);
-            chapterSelect.value = currentChapterIndex;
-
-            displayCurrentChapter();
-            updateLastReadInfo(currentBookIndex, currentChapterIndex);
-            lastReadInfo.style.display = 'block';
-        } else {
-            lastReadInfo.innerHTML = '<p class="initial-message">Nenhuma leitura anterior encontrada.</p>';
-            lastReadInfo.style.display = 'block';
-        }
-    }
-
-    function updateLastReadInfo(bookIndex, chapterIndex) {
-        if (bookIndex !== null && chapterIndex !== null && bibleData[bookIndex]) {
-            // Certifique-se de que bookName usa bibleData[bookIndex].name
-            const bookName = bibleData[bookIndex].name;
-            const chapterNumber = parseInt(chapterIndex) + 1;
-            lastReadInfo.innerHTML = `<p>Última leitura: <strong>${bookName} - Capítulo ${chapterNumber}</strong></p>`;
-            lastReadInfo.style.display = 'block';
-        } else {
-            lastReadInfo.innerHTML = '<p class="initial-message">Nenhuma leitura anterior encontrada.</p>';
-        }
-    }
-
-    // Função auxiliar para popular o select de capítulos
     function populateChapterSelect(bookIndex) {
         chapterSelect.innerHTML = '<option value="">Selecione um capítulo</option>';
         if (bookIndex !== null && bibleData[bookIndex]) {
-            const book = bibleData[bookIndex];
-            for (let i = 0; i < book.chapters.length; i++) {
+            const numChapters = bibleData[bookIndex].chapters.length;
+            for (let i = 1; i <= numChapters; i++) {
                 const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Capítulo ${i + 1}`;
+                option.value = i - 1; // Índices baseados em 0
+                option.textContent = `Capítulo ${i}`;
                 chapterSelect.appendChild(option);
             }
             chapterSelect.disabled = false;
@@ -105,176 +67,133 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Event Listeners para Seleção de Livro/Capítulo ---
-
-    bookSelect.addEventListener('change', () => {
-        currentBookIndex = bookSelect.value === "" ? null : parseInt(bookSelect.value);
-        currentChapterIndex = null; // Reseta o capítulo ao mudar o livro
-
-        populateChapterSelect(currentBookIndex);
-
-        bibleContent.innerHTML = '<p class="initial-message">Selecione um capítulo para começar a ler.</p>';
-        clearHighlightsBtn.style.display = 'none';
-        prevChapterBtn.disabled = true;
-        nextChapterBtn.disabled = true;
-
-        updateLastReadInfo(null, null); // Limpa info da última leitura se nenhum livro estiver selecionado
-    });
-
-    chapterSelect.addEventListener('change', () => {
-        currentChapterIndex = chapterSelect.value === "" ? null : parseInt(chapterSelect.value);
-        if (currentBookIndex !== null && currentChapterIndex !== null) {
-            displayCurrentChapter();
-            saveLastReadChapter(currentBookIndex, currentChapterIndex);
-            clearHighlightsBtn.style.display = 'block';
+    function displayChapter(bookIndex, chapterIndex) {
+        if (bookIndex !== null && chapterIndex !== null && bibleData[bookIndex] && bibleData[bookIndex].chapters[chapterIndex]) {
+            const chapterVerses = bibleData[bookIndex].chapters[chapterIndex];
+            let contentHtml = `<h2 class="chapter-title">${bibleData[bookIndex].abbrev} - Capítulo ${chapterIndex + 1}</h2>`;
+            chapterVerses.forEach((verse, verseIndex) => {
+                const verseId = `${bookIndex}-${chapterIndex}-${verseIndex}`;
+                const isHighlighted = highlights.has(verseId);
+                contentHtml += `<p class="verse ${isHighlighted ? 'highlighted' : ''}" data-verse-id="${verseId}">
+                                    <span class="verse-number">${verseIndex + 1}.</span> ${verse}
+                                </p>`;
+            });
+            bibleContent.innerHTML = contentHtml;
+            updateChapterNavigationButtons();
+            clearHighlightsBtn.style.display = 'block'; // Mostra o botão de limpar destaques
+            saveLastReadChapter(bookIndex, chapterIndex);
         } else {
-            bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
-            clearHighlightsBtn.style.display = 'none';
+            bibleContent.innerHTML = `<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>`;
+            clearHighlightsBtn.style.display = 'none'; // Esconde o botão se não há capítulo
+            prevChapterBtn.disabled = true;
+            nextChapterBtn.disabled = true;
         }
-        updateChapterNavigationButtons(); // Atualiza estado dos botões de navegação
+    }
+
+    function saveLastReadChapter(bookIndex, chapterIndex) {
+        localStorage.setItem(LAST_READ_KEY, JSON.stringify({ book: bookIndex, chapter: chapterIndex }));
+    }
+
+    function loadLastReadChapter() {
+        const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
+        if (lastRead && lastRead.book !== undefined && lastRead.chapter !== undefined) {
+            currentBookIndex = lastRead.book;
+            currentChapterIndex = lastRead.chapter;
+
+            bookSelect.value = currentBookIndex;
+            populateChapterSelect(currentBookIndex);
+            chapterSelect.value = currentChapterIndex;
+            displayChapter(currentBookIndex, currentChapterIndex);
+            lastReadInfo.textContent = `Última leitura: ${bibleData[currentBookIndex].abbrev} - Capítulo ${currentChapterIndex + 1}`;
+        } else {
+            lastReadInfo.textContent = 'Nenhuma leitura anterior encontrada.';
+        }
+    }
+
+    function updateChapterNavigationButtons() {
+        const currentBook = bibleData[currentBookIndex];
+        const hasNextChapter = currentChapterIndex < currentBook.chapters.length - 1;
+        const hasPrevChapter = currentChapterIndex > 0;
+        const hasNextBook = currentBookIndex < bibleData.length - 1;
+        const hasPrevBook = currentBookIndex > 0;
+
+        nextChapterBtn.disabled = !hasNextChapter && !hasNextBook;
+        prevChapterBtn.disabled = !hasPrevChapter && !hasPrevBook;
+    }
+
+    // --- Event Listeners ---
+
+    bookSelect.addEventListener('change', (event) => {
+        currentBookIndex = parseInt(event.target.value);
+        currentChapterIndex = null; // Reseta o capítulo ao mudar de livro
+        populateChapterSelect(currentBookIndex);
+        displayChapter(currentBookIndex, currentChapterIndex); // Exibe mensagem inicial
     });
 
-    // --- Nova Lógica de Destaque por Clique no Versículo ---
-
-    function saveHighlights() {
-        localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
-    }
-
-    function displayCurrentChapter() {
-        if (currentBookIndex === null || currentChapterIndex === null) {
-            bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
-            return;
-        }
-        const book = bibleData[currentBookIndex];
-        const chapter = book.chapters[currentChapterIndex];
-        bibleContent.innerHTML = '';
-
-        chapter.forEach((verse, index) => {
-            const p = document.createElement('p');
-            p.classList.add('verse');
-            p.dataset.verseIndex = index;
-            p.dataset.bookIndex = currentBookIndex;
-            p.dataset.chapterIndex = currentChapterIndex;
-
-            const verseKey = `${currentBookIndex}-${currentChapterIndex}-${index}`;
-
-            if (highlights.has(verseKey)) {
-                p.classList.add('highlighted-verse');
-            }
-
-            p.innerHTML = `<span class="verse-number">${index + 1}.</span> ${verse}`;
-            bibleContent.appendChild(p);
-        });
-        updateChapterNavigationButtons(); // Atualiza estado dos botões de navegação
-    }
+    chapterSelect.addEventListener('change', (event) => {
+        currentChapterIndex = parseInt(event.target.value);
+        displayChapter(currentBookIndex, currentChapterIndex);
+    });
 
     bibleContent.addEventListener('click', (event) => {
-        const clickedVerse = event.target.closest('.verse');
-
-        if (clickedVerse && currentBookIndex !== null && currentChapterIndex !== null) {
-            const verseIndex = parseInt(clickedVerse.dataset.verseIndex);
-            const verseKey = `${currentBookIndex}-${currentChapterIndex}-${verseIndex}`;
-
-            if (highlights.has(verseKey)) {
-                highlights.delete(verseKey);
+        const verseElement = event.target.closest('.verse');
+        if (verseElement) {
+            const verseId = verseElement.dataset.verseId;
+            if (highlights.has(verseId)) {
+                highlights.delete(verseId);
+                verseElement.classList.remove('highlighted');
             } else {
-                highlights.add(verseKey);
+                highlights.add(verseId);
+                verseElement.classList.add('highlighted');
             }
-            saveHighlights();
-            clickedVerse.classList.toggle('highlighted-verse'); // Alterna a classe diretamente
+            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
         }
     });
 
     clearHighlightsBtn.addEventListener('click', () => {
-        if (currentBookIndex !== null && currentChapterIndex !== null) {
-            if (confirm('Tem certeza que deseja limpar TODOS os destaques deste capítulo?')) {
-                highlights = new Set(Array.from(highlights).filter(key => {
-                    const parts = key.split('-');
-                    return !(parseInt(parts[0]) === currentBookIndex && parseInt(parts[1]) === currentChapterIndex);
-                }));
-
-                saveHighlights();
-                displayCurrentChapter();
-                alert('Destaques deste capítulo foram limpos!');
-            }
+        if (confirm('Tem certeza que deseja remover todos os destaques deste capítulo?')) {
+            const verseElements = bibleContent.querySelectorAll('.verse.highlighted');
+            verseElements.forEach(verseElement => {
+                const verseId = verseElement.dataset.verseId;
+                highlights.delete(verseId);
+                verseElement.classList.remove('highlighted');
+            });
+            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
         }
     });
 
-    // --- Navegação entre Capítulos (Próximo/Anterior) ---
-
-    function updateChapterNavigationButtons() {
-        if (currentBookIndex === null || currentChapterIndex === null || bibleData.length === 0) {
-            prevChapterBtn.disabled = true;
-            nextChapterBtn.disabled = true;
-            return;
-        }
-
-        const currentBook = bibleData[currentBookIndex];
-        const totalChaptersInBook = currentBook.chapters.length;
-        const totalBooks = bibleData.length;
-
-        // Habilita/Desabilita botão "Anterior"
-        if (currentChapterIndex > 0) {
-            prevChapterBtn.disabled = false;
-        } else if (currentBookIndex > 0) {
-            prevChapterBtn.disabled = false; // Há um livro anterior
-        } else {
-            prevChapterBtn.disabled = true;
-        }
-
-        // Habilita/Desabilita botão "Próximo"
-        if (currentChapterIndex < totalChaptersInBook - 1) {
-            nextChapterBtn.disabled = false;
-        } else if (currentBookIndex < totalBooks - 1) {
-            nextChapterBtn.disabled = false; // Há um livro próximo
-        } else {
-            nextChapterBtn.disabled = true;
-        }
-    }
-
     prevChapterBtn.addEventListener('click', () => {
-        if (currentBookIndex === null || currentChapterIndex === null) return;
-
-        if (currentChapterIndex > 0) {
-            currentChapterIndex--;
-        } else if (currentBookIndex > 0) {
-            currentBookIndex--;
-            currentChapterIndex = bibleData[currentBookIndex].chapters.length - 1; // Último capítulo do livro anterior
-        } else {
-            return; // Não há capítulo anterior
+        if (currentBookIndex !== null && currentChapterIndex !== null) {
+            if (currentChapterIndex > 0) {
+                currentChapterIndex--;
+            } else if (currentBookIndex > 0) {
+                currentBookIndex--;
+                currentChapterIndex = bibleData[currentBookIndex].chapters.length - 1;
+            }
+            bookSelect.value = currentBookIndex;
+            populateChapterSelect(currentBookIndex);
+            chapterSelect.value = currentChapterIndex;
+            displayChapter(currentBookIndex, currentChapterIndex);
         }
-
-        bookSelect.value = currentBookIndex;
-        populateChapterSelect(currentBookIndex); // Popula capítulos do novo livro, se for o caso
-        chapterSelect.value = currentChapterIndex;
-        displayCurrentChapter();
-        saveLastReadChapter(currentBookIndex, currentChapterIndex);
-        updateChapterNavigationButtons();
     });
 
     nextChapterBtn.addEventListener('click', () => {
-        if (currentBookIndex === null || currentChapterIndex === null) return;
-
-        const currentBook = bibleData[currentBookIndex];
-        if (currentChapterIndex < currentBook.chapters.length - 1) {
-            currentChapterIndex++;
-        } else if (currentBookIndex < bibleData.length - 1) {
-            currentBookIndex++;
-            currentChapterIndex = 0; // Primeiro capítulo do próximo livro
-        } else {
-            return; // Não há capítulo próximo
+        if (currentBookIndex !== null && currentChapterIndex !== null) {
+            const currentBook = bibleData[currentBookIndex];
+            if (currentChapterIndex < currentBook.chapters.length - 1) {
+                currentChapterIndex++;
+            } else if (currentBookIndex < bibleData.length - 1) {
+                currentBookIndex++;
+                currentChapterIndex = 0; // Vai para o primeiro capítulo do próximo livro
+            }
+            bookSelect.value = currentBookIndex;
+            populateChapterSelect(currentBookIndex);
+            chapterSelect.value = currentChapterIndex;
+            displayChapter(currentBookIndex, currentChapterIndex);
         }
-
-        bookSelect.value = currentBookIndex;
-        populateChapterSelect(currentBookIndex); // Popula capítulos do novo livro, se for o caso
-        chapterSelect.value = currentChapterIndex;
-        displayCurrentChapter();
-        saveLastReadChapter(currentBookIndex, currentChapterIndex);
-        updateChapterNavigationButtons();
     });
 
-
-    // --- Configurações de Tema e Tamanho da Fonte ---
+    // --- Tema e Tamanho da Fonte ---
 
     function applySavedSettings() {
         // Aplica Tema
@@ -312,6 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(FONT_SIZE_KEY, newFontSize);
     });
 
-    // Inicializa o aplicativo
+    // --- Inicialização ---
     loadBibleData();
 });
