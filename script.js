@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const bibleContent = document.getElementById('bible-content');
     const lastReadInfo = document.getElementById('last-read-info');
     const clearHighlightsBtn = document.getElementById('clear-highlights-btn');
-    const prevChapterBtn = document.getElementById('prev-chapter-btn'); // Novo
-    const nextChapterBtn = document.getElementById('next-chapter-btn'); // Novo
-    const themeToggleBtn = document.getElementById('theme-toggle-btn'); // Novo
-    const fontSizeSelect = document.getElementById('font-size-select'); // Novo
-    const loadingIndicator = document.getElementById('loading-indicator'); // Novo
+    const prevChapterBtn = document.getElementById('prev-chapter-btn');
+    const nextChapterBtn = document.getElementById('next-chapter-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const fontSizeSelect = document.getElementById('font-size-select');
+    const loadingIndicator = document.getElementById('loading-indicator');
 
     let bibleData = [];
     let currentBookIndex = null;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bibleData.forEach((book, index) => {
             const option = document.createElement('option');
             option.value = index;
-            option.textContent = book.abbrev; // Ou book.name, dependendo da preferência
+            option.textContent = book.name; // Usar book.name para o nome completo
             bookSelect.appendChild(option);
         });
     }
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLastReadInfo(bookIndex, chapterIndex) {
         if (bookIndex !== null && chapterIndex !== null && bibleData[bookIndex]) {
+            // Certifique-se de que bookName usa bibleData[bookIndex].name
             const bookName = bibleData[bookIndex].name;
             const chapterNumber = parseInt(chapterIndex) + 1;
             lastReadInfo.innerHTML = `<p>Última leitura: <strong>${bookName} - Capítulo ${chapterNumber}</strong></p>`;
