@@ -194,10 +194,76 @@ button:active {
     margin-top: var(--spacing-xs); /* Small margin for spacing */
 }
 
-.settings select, .settings button {
-    width: 100%; /* Ensure full width on mobile for settings controls */
-    max-width: unset; /* Remove max-width for mobile settings */
-    min-width: 150px; /* Garante uma largura mínima */
+/* Visually hidden for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap;
+}
+
+/* Styles for icon buttons */
+.settings .icon-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and potentially hidden text */
+    padding: 12px 15px;
+    min-height: 48px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--body-font);
+}
+
+.settings .icon-toggle-btn .icon-light,
+.settings .icon-toggle-btn .icon-dark {
+    font-size: 1.5rem; /* Adjust icon size */
+    line-height: 1; /* Ensure icons align properly */
+}
+
+/* Initial state for icons (controlled by JS) */
+.settings .icon-toggle-btn .icon-light {
+    display: inline; /* Default to light icon */
+}
+.settings .icon-toggle-btn .icon-dark {
+    display: none; /* Hide dark icon by default */
+}
+
+
+/* Styles for font size controls (A- A A+) */
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    width: 100%; /* Take full width on mobile */
+    justify-content: center; /* Center controls on mobile */
+}
+
+.font-size-controls button {
+    padding: 8px 12px;
+    min-height: 38px; /* Slightly smaller buttons for font size */
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: auto; /* Let buttons size based on content */
+}
+
+.font-size-controls .font-size-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-color);
 }
 
 
@@ -379,6 +445,15 @@ body.dark-mode .spinner {
         max-width: 200px; /* Example max-width for setting controls on desktop */
     }
 
+    .settings .icon-toggle-btn {
+        width: auto; /* Restore auto width for desktop */
+        max-width: 200px;
+    }
+
+    .font-size-controls {
+        width: auto; /* Restore auto width for desktop */
+        justify-content: flex-start; /* Align to start on desktop */
+    }
 
     #bible-content p.verse { /* Ajusta o seletor para pegar a classe .verse */
         font-size: 1em; /* Ajustado para 1em novamente, para ser relativo ao base-font-size */

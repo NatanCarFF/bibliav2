@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevChapterBtn = document.getElementById('prev-chapter-btn');
     const nextChapterBtn = document.getElementById('next-chapter-btn');
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    const fontSizeSelect = document.getElementById('font-size-select');
+    const fontSizeSelect = document.getElementById('font-size-select'); // Keep this for storing value
+    const decreaseFontSizeBtn = document.getElementById('decrease-font-size-btn');
+    const increaseFontSizeBtn = document.getElementById('increase-font-size-btn');
     const loadingIndicator = document.getElementById('loading-indicator');
 
     let bibleData = [];
@@ -31,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             bibleData = await response.json();
             populateBookSelect();
-            loadLastReadChapter();
-            applySavedSettings(); // Aplica as configurações salvas (tema e fonte)
+            applySavedSettings(); // Apply settings after data is loaded
+            checkLastReadChapter();
         } catch (error) {
             console.error('Erro ao carregar os dados da Bíblia:', error);
-            bibleContent.innerHTML = `<p class="error-message">Erro ao carregar a Bíblia. Por favor, tente novamente mais tarde.</p>`;
+            bibleContent.innerHTML = `<p class="error-message">Erro ao carregar a Bíblia. Tente novamente mais tarde.</p>`;
         } finally {
             loadingIndicator.style.display = 'none'; // Esconde o spinner
         }
@@ -46,19 +48,38 @@ document.addEventListener('DOMContentLoaded', () => {
         bibleData.forEach((book, index) => {
             const option = document.createElement('option');
             option.value = index;
-            option.textContent = book.abbrev;
+            option.textContent = book.name;
             bookSelect.appendChild(option);
         });
     }
+
+    // --- Funções de Navegação e Carregamento de Capítulo ---
+
+    bookSelect.addEventListener('change', () => {
+        currentBookIndex = bookSelect.value === "" ? null : parseInt(bookSelect.value);
+        currentChapterIndex = null; // Reset chapter when book changes
+        populateChapterSelect(currentBookIndex);
+        if (currentBookIndex !== null) {
+            localStorage.setItem(LAST_READ_KEY, JSON.stringify({ bookIndex: currentBookIndex, chapterIndex: 0 }));
+            displayChapter(currentBookIndex, 0); // Display first chapter of the new book
+        } else {
+            bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
+            chapterSelect.disabled = true;
+            clearHighlightsBtn.style.display = 'none';
+            prevChapterBtn.disabled = true;
+            nextChapterBtn.disabled = true;
+        }
+        updateLastReadInfo();
+    });
 
     function populateChapterSelect(bookIndex) {
         chapterSelect.innerHTML = '<option value="">Selecione um capítulo</option>';
         if (bookIndex !== null && bibleData[bookIndex]) {
             const numChapters = bibleData[bookIndex].chapters.length;
-            for (let i = 1; i <= numChapters; i++) {
+            for (let i = 0; i < numChapters; i++) {
                 const option = document.createElement('option');
-                option.value = i - 1; // Índices baseados em 0
-                option.textContent = `Capítulo ${i}`;
+                option.value = i;
+                option.textContent = `Capítulo ${i + 1}`;
                 chapterSelect.appendChild(option);
             }
             chapterSelect.disabled = false;
@@ -67,100 +88,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function displayChapter(bookIndex, chapterIndex) {
-        if (bookIndex !== null && chapterIndex !== null && bibleData[bookIndex] && bibleData[bookIndex].chapters[chapterIndex]) {
-            const chapterVerses = bibleData[bookIndex].chapters[chapterIndex];
-            let contentHtml = `<h2 class="chapter-title">${bibleData[bookIndex].abbrev} - Capítulo ${chapterIndex + 1}</h2>`;
-            chapterVerses.forEach((verse, verseIndex) => {
-                const verseId = `${bookIndex}-${chapterIndex}-${verseIndex}`;
-                const isHighlighted = highlights.has(verseId);
-                contentHtml += `<p class="verse ${isHighlighted ? 'highlighted' : ''}" data-verse-id="${verseId}">
-                                    <span class="verse-number">${verseIndex + 1}.</span> ${verse}
-                                </p>`;
-            });
-            bibleContent.innerHTML = contentHtml;
-            updateChapterNavigationButtons();
-            clearHighlightsBtn.style.display = 'block'; // Mostra o botão de limpar destaques
-            saveLastReadChapter(bookIndex, chapterIndex);
-        } else {
-            bibleContent.innerHTML = `<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>`;
-            clearHighlightsBtn.style.display = 'none'; // Esconde o botão se não há capítulo
-            prevChapterBtn.disabled = true;
-            nextChapterBtn.disabled = true;
-        }
-    }
-
-    function saveLastReadChapter(bookIndex, chapterIndex) {
-        localStorage.setItem(LAST_READ_KEY, JSON.stringify({ book: bookIndex, chapter: chapterIndex }));
-    }
-
-    function loadLastReadChapter() {
-        const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
-        if (lastRead && lastRead.book !== undefined && lastRead.chapter !== undefined) {
-            currentBookIndex = lastRead.book;
-            currentChapterIndex = lastRead.chapter;
-
-            bookSelect.value = currentBookIndex;
-            populateChapterSelect(currentBookIndex);
-            chapterSelect.value = currentChapterIndex;
+    chapterSelect.addEventListener('change', () => {
+        currentChapterIndex = chapterSelect.value === "" ? null : parseInt(chapterSelect.value);
+        if (currentBookIndex !== null && currentChapterIndex !== null) {
             displayChapter(currentBookIndex, currentChapterIndex);
-            lastReadInfo.textContent = `Última leitura: ${bibleData[currentBookIndex].abbrev} - Capítulo ${currentChapterIndex + 1}`;
+            localStorage.setItem(LAST_READ_KEY, JSON.stringify({ bookIndex: currentBookIndex, chapterIndex: currentChapterIndex }));
         } else {
-            lastReadInfo.textContent = 'Nenhuma leitura anterior encontrada.';
+            bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
         }
+        updateLastReadInfo();
+    });
+
+    function displayChapter(bookIndex, chapterIndex) {
+        if (bookIndex === null || chapterIndex === null || !bibleData[bookIndex] || !bibleData[bookIndex].chapters[chapterIndex]) {
+            bibleContent.innerHTML = '<p class="error-message">Capítulo não encontrado.</p>';
+            clearHighlightsBtn.style.display = 'none';
+            return;
+        }
+
+        const chapter = bibleData[bookIndex].chapters[chapterIndex];
+        let contentHtml = `<h2>${bibleData[bookIndex].name} - Capítulo ${chapterIndex + 1}</h2>`;
+
+        chapter.forEach((verse, verseIndex) => {
+            const highlightId = `${bookIndex}-${chapterIndex}-${verseIndex}`;
+            const isHighlighted = highlights.has(highlightId) ? ' highlighted' : '';
+            contentHtml += `<p class="verse${isHighlighted}" data-highlight-id="${highlightId}">` +
+                           `<span class="verse-number">${verseIndex + 1}</span> ${verse}</p>`;
+        });
+
+        bibleContent.innerHTML = contentHtml;
+        clearHighlightsBtn.style.display = 'block'; // Show clear highlights button when chapter is displayed
+        updateNavigationButtons(bookIndex, chapterIndex);
     }
 
-    function updateChapterNavigationButtons() {
-        const currentBook = bibleData[currentBookIndex];
-        const hasNextChapter = currentChapterIndex < currentBook.chapters.length - 1;
-        const hasPrevChapter = currentChapterIndex > 0;
-        const hasNextBook = currentBookIndex < bibleData.length - 1;
-        const hasPrevBook = currentBookIndex > 0;
+    function updateNavigationButtons(bookIndex, chapterIndex) {
+        const numChapters = bibleData[bookIndex].chapters.length;
 
-        nextChapterBtn.disabled = !hasNextChapter && !hasNextBook;
-        prevChapterBtn.disabled = !hasPrevChapter && !hasPrevBook;
+        prevChapterBtn.disabled = (chapterIndex === 0 && bookIndex === 0);
+        nextChapterBtn.disabled = (chapterIndex === numChapters - 1 && bookIndex === bibleData.length - 1);
     }
-
-    // --- Event Listeners ---
-
-    bookSelect.addEventListener('change', (event) => {
-        currentBookIndex = parseInt(event.target.value);
-        currentChapterIndex = null; // Reseta o capítulo ao mudar de livro
-        populateChapterSelect(currentBookIndex);
-        displayChapter(currentBookIndex, currentChapterIndex); // Exibe mensagem inicial
-    });
-
-    chapterSelect.addEventListener('change', (event) => {
-        currentChapterIndex = parseInt(event.target.value);
-        displayChapter(currentBookIndex, currentChapterIndex);
-    });
-
-    bibleContent.addEventListener('click', (event) => {
-        const verseElement = event.target.closest('.verse');
-        if (verseElement) {
-            const verseId = verseElement.dataset.verseId;
-            if (highlights.has(verseId)) {
-                highlights.delete(verseId);
-                verseElement.classList.remove('highlighted');
-            } else {
-                highlights.add(verseId);
-                verseElement.classList.add('highlighted');
-            }
-            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
-        }
-    });
-
-    clearHighlightsBtn.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja remover todos os destaques deste capítulo?')) {
-            const verseElements = bibleContent.querySelectorAll('.verse.highlighted');
-            verseElements.forEach(verseElement => {
-                const verseId = verseElement.dataset.verseId;
-                highlights.delete(verseId);
-                verseElement.classList.remove('highlighted');
-            });
-            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
-        }
-    });
 
     prevChapterBtn.addEventListener('click', () => {
         if (currentBookIndex !== null && currentChapterIndex !== null) {
@@ -174,63 +140,158 @@ document.addEventListener('DOMContentLoaded', () => {
             populateChapterSelect(currentBookIndex);
             chapterSelect.value = currentChapterIndex;
             displayChapter(currentBookIndex, currentChapterIndex);
+            localStorage.setItem(LAST_READ_KEY, JSON.stringify({ bookIndex: currentBookIndex, chapterIndex: currentChapterIndex }));
+            updateLastReadInfo();
         }
     });
 
     nextChapterBtn.addEventListener('click', () => {
         if (currentBookIndex !== null && currentChapterIndex !== null) {
-            const currentBook = bibleData[currentBookIndex];
-            if (currentChapterIndex < currentBook.chapters.length - 1) {
+            const numChapters = bibleData[currentBookIndex].chapters.length;
+            if (currentChapterIndex < numChapters - 1) {
                 currentChapterIndex++;
             } else if (currentBookIndex < bibleData.length - 1) {
                 currentBookIndex++;
-                currentChapterIndex = 0; // Vai para o primeiro capítulo do próximo livro
+                currentChapterIndex = 0;
             }
             bookSelect.value = currentBookIndex;
             populateChapterSelect(currentBookIndex);
             chapterSelect.value = currentChapterIndex;
             displayChapter(currentBookIndex, currentChapterIndex);
+            localStorage.setItem(LAST_READ_KEY, JSON.stringify({ bookIndex: currentBookIndex, chapterIndex: currentChapterIndex }));
+            updateLastReadInfo();
         }
     });
 
-    // --- Tema e Tamanho da Fonte ---
+    // --- Funções de Destaque (Highlights) ---
+
+    bibleContent.addEventListener('click', (event) => {
+        const verseElement = event.target.closest('.verse');
+        if (verseElement) {
+            const highlightId = verseElement.dataset.highlightId;
+            if (highlights.has(highlightId)) {
+                highlights.delete(highlightId);
+                verseElement.classList.remove('highlighted');
+            } else {
+                highlights.add(highlightId);
+                verseElement.classList.add('highlighted');
+            }
+            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
+        }
+    });
+
+    clearHighlightsBtn.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja remover todos os destaques do capítulo atual?')) {
+            const currentChapterHighlights = new Set();
+            document.querySelectorAll('#bible-content .verse').forEach(verseElement => {
+                const highlightId = verseElement.dataset.highlightId;
+                if (highlights.has(highlightId)) {
+                    highlights.delete(highlightId);
+                    verseElement.classList.remove('highlighted');
+                }
+            });
+            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
+            alert('Destaques removidos do capítulo atual.');
+        }
+    });
+
+    // --- Funções de Última Leitura ---
+
+    function checkLastReadChapter() {
+        const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
+        if (lastRead && bibleData[lastRead.bookIndex] && bibleData[lastRead.bookIndex].chapters[lastRead.chapterIndex]) {
+            currentBookIndex = lastRead.bookIndex;
+            currentChapterIndex = lastRead.chapterIndex;
+            bookSelect.value = currentBookIndex;
+            populateChapterSelect(currentBookIndex);
+            chapterSelect.value = currentChapterIndex;
+            displayChapter(currentBookIndex, currentChapterIndex);
+            updateLastReadInfo();
+        } else {
+            bibleContent.innerHTML = '<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>';
+            updateLastReadInfo();
+        }
+    }
+
+    function updateLastReadInfo() {
+        const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
+        if (lastRead && bibleData[lastRead.bookIndex] && bibleData[lastRead.bookIndex].chapters[lastRead.chapterIndex]) {
+            const bookName = bibleData[lastRead.bookIndex].name;
+            const chapterNum = lastRead.chapterIndex + 1;
+            lastReadInfo.innerHTML = `Última leitura: <strong>${bookName} - Capítulo ${chapterNum}</strong>`;
+            lastReadInfo.style.display = 'block';
+        } else {
+            lastReadInfo.style.display = 'none';
+        }
+    }
+
+    // --- Configurações de Tema e Tamanho da Fonte ---
+
+    function updateThemeIcons() {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        document.querySelector('#theme-toggle-btn .icon-light').style.display = isDarkMode ? 'none' : 'inline';
+        document.querySelector('#theme-toggle-btn .icon-dark').style.display = isDarkMode ? 'inline' : 'none';
+    }
 
     function applySavedSettings() {
         // Aplica Tema
         const savedTheme = localStorage.getItem(THEME_KEY);
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
-            themeToggleBtn.textContent = 'Modo Claro';
         } else {
             document.body.classList.remove('dark-mode');
-            themeToggleBtn.textContent = 'Modo Escuro';
         }
+        updateThemeIcons(); // Update icons based on theme
 
         // Aplica Tamanho da Fonte
         const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
         if (savedFontSize) {
             document.documentElement.style.setProperty('--base-font-size', `${savedFontSize}rem`);
-            fontSizeSelect.value = savedFontSize;
+            fontSizeSelect.value = savedFontSize; // Update hidden select
+        } else {
+            // Set default font size if not saved
+            const defaultFontSize = '1.0'; // Corresponds to 'Padrão'
+            document.documentElement.style.setProperty('--base-font-size', `${defaultFontSize}rem`);
+            localStorage.setItem(FONT_SIZE_KEY, defaultFontSize);
+            fontSizeSelect.value = defaultFontSize;
         }
+        currentFontSizeIndex = fontSizes.indexOf(parseFloat(localStorage.getItem(FONT_SIZE_KEY) || '1.0'));
     }
 
     themeToggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         if (document.body.classList.contains('dark-mode')) {
             localStorage.setItem(THEME_KEY, 'dark');
-            themeToggleBtn.textContent = 'Modo Claro';
         } else {
             localStorage.setItem(THEME_KEY, 'light');
-            themeToggleBtn.textContent = 'Modo Escuro';
+        }
+        updateThemeIcons(); // Update icons after toggle
+    });
+
+    // Font size controls
+    const fontSizes = [1.0, 1.1, 1.2, 1.3]; // Corresponds to Padrão, Médio, Grande, Muito Grande
+    let currentFontSizeIndex = fontSizes.indexOf(parseFloat(localStorage.getItem(FONT_SIZE_KEY) || '1.0'));
+
+    decreaseFontSizeBtn.addEventListener('click', () => {
+        if (currentFontSizeIndex > 0) {
+            currentFontSizeIndex--;
+            const newFontSize = fontSizes[currentFontSizeIndex];
+            document.documentElement.style.setProperty('--base-font-size', `${newFontSize}rem`);
+            localStorage.setItem(FONT_SIZE_KEY, newFontSize.toString());
+            fontSizeSelect.value = newFontSize.toString(); // Update hidden select value
         }
     });
 
-    fontSizeSelect.addEventListener('change', () => {
-        const newFontSize = fontSizeSelect.value;
-        document.documentElement.style.setProperty('--base-font-size', `${newFontSize}rem`);
-        localStorage.setItem(FONT_SIZE_KEY, newFontSize);
+    increaseFontSizeBtn.addEventListener('click', () => {
+        if (currentFontSizeIndex < fontSizes.length - 1) {
+            currentFontSizeIndex++;
+            const newFontSize = fontSizes[currentFontSizeIndex];
+            document.documentElement.style.setProperty('--base-font-size', `${newFontSize}rem`);
+            localStorage.setItem(FONT_SIZE_KEY, newFontSize.toString());
+            fontSizeSelect.value = newFontSize.toString(); // Update hidden select value
+        }
     });
 
-    // --- Inicialização ---
+    // Initial load
     loadBibleData();
 });

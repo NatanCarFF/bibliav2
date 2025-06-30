@@ -22,15 +22,22 @@
         </div>
 
         <div class="settings">
-            <label for="font-size-select">Tamanho da Fonte:</label>
-            <select id="font-size-select">
+            <div class="font-size-controls">
+                <button id="decrease-font-size-btn" title="Diminuir Tamanho da Fonte">A-</button>
+                <span class="font-size-label" title="Tamanho da Fonte">A</span>
+                <button id="increase-font-size-btn" title="Aumentar Tamanho da Fonte">A+</button>
+            </div>
+            <select id="font-size-select" style="display:none;">
                 <option value="1.0">Padrão</option>
                 <option value="1.1">Médio</option>
                 <option value="1.2">Grande</option>
                 <option value="1.3">Muito Grande</option>
             </select>
 
-            <button id="theme-toggle-btn">Modo Escuro</button>
+            <button id="theme-toggle-btn" class="icon-toggle-btn" title="Alternar Tema">
+                <span class="icon-light">☀️ <span class="visually-hidden">Modo Claro</span></span>
+                <span class="icon-dark">🌙 <span class="visually-hidden">Modo Escuro</span></span>
+            </button>
         </div>
 
         <div id="loading-indicator" class="loading-indicator" style="display: none;">
@@ -47,10 +54,14 @@
             <button id="next-chapter-btn" disabled>Próximo Capítulo</button>
         </div>
 
-        <div id="last-read-info" class="initial-message" style="margin-top: 20px;">
-            Carregando última leitura...
-        </div>
+        <div id="last-read-info" class="last-read-info" style="display: none;">
+            </div>
     </main>
+
+    <footer>
+        <p>&copy; 2024 Minha Bíblia Online</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
