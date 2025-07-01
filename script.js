@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chapterSelect = document.getElementById('chapter-select');
     const bibleContent = document.getElementById('bible-content');
     const lastReadInfo = document.getElementById('last-read-info');
-    const clearHighlightsBtn = document.getElementById('clear-highlights-btn');
+    // const clearHighlightsBtn = document.getElementById('clear-highlights-btn'); // Removido
     const prevChapterBtn = document.getElementById('prev-chapter-btn');
     const nextChapterBtn = document.getElementById('next-chapter-btn');
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             bibleContent.innerHTML = contentHtml;
             updateChapterNavigationButtons();
-            clearHighlightsBtn.style.display = 'block'; // Mostra o botão de limpar destaques
+            // clearHighlightsBtn.style.display = 'block'; // Removido
             saveLastReadChapter(bookIndex, chapterIndex);
         } else {
             bibleContent.innerHTML = `<p class="initial-message">Selecione um livro e um capítulo para começar a ler.</p>`;
-            clearHighlightsBtn.style.display = 'none'; // Esconde o botão se não há capítulo
+            // clearHighlightsBtn.style.display = 'none'; // Removido
             prevChapterBtn.disabled = true;
             nextChapterBtn.disabled = true;
         }
@@ -150,17 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    clearHighlightsBtn.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja remover todos os destaques deste capítulo?')) {
-            const verseElements = bibleContent.querySelectorAll('.verse.highlighted');
-            verseElements.forEach(verseElement => {
-                const verseId = verseElement.dataset.verseId;
-                highlights.delete(verseId);
-                verseElement.classList.remove('highlighted');
-            });
-            localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
-        }
-    });
+    // clearHighlightsBtn.addEventListener('click', () => { // Removido
+    //     if (confirm('Tem certeza que deseja remover todos os destaques deste capítulo?')) {
+    //         const verseElements = bibleContent.querySelectorAll('.verse.highlighted');
+    //         verseElements.forEach(verseElement => {
+    //             const verseId = verseElement.dataset.verseId;
+    //             highlights.delete(verseId);
+    //             verseElement.classList.remove('highlighted');
+    //         });
+    //         localStorage.setItem('bibleHighlightsSet', JSON.stringify(Array.from(highlights)));
+    //     }
+    // });
 
     prevChapterBtn.addEventListener('click', () => {
         if (currentBookIndex !== null && currentChapterIndex !== null) {
