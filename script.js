@@ -69,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayChapter(bookIndex, chapterIndex) {
         if (bookIndex !== null && chapterIndex !== null && bibleData[bookIndex] && bibleData[bookIndex].chapters[chapterIndex]) {
             const chapterVerses = bibleData[bookIndex].chapters[chapterIndex];
-            let contentHtml = `<h2 class="chapter-title">${bibleData[bookIndex].name} - Capítulo ${chapterIndex + 1}</h2>`; // Use o nome completo do livro
+            // CORREÇÃO: Usar book.name se disponível, senão book.abbrev
+            const bookName = bibleData[bookIndex].name || bibleData[bookIndex].abbrev;
+            let contentHtml = `<h2 class="chapter-title">${bookName} - Capítulo ${chapterIndex + 1}</h2>`;
             chapterVerses.forEach((verse, verseIndex) => {
                 const verseId = `${bookIndex}-${chapterIndex}-${verseIndex}`;
                 const isHighlighted = highlights.has(verseId);
@@ -105,7 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
             populateChapterSelect(currentBookIndex);
             chapterSelect.value = currentChapterIndex;
             displayChapter(currentBookIndex, currentChapterIndex);
-            lastReadInfo.textContent = `Última leitura: ${bibleData[currentBookIndex].name} - Capítulo ${currentChapterIndex + 1}`; // Use o nome completo
+            // CORREÇÃO: Usar book.name se disponível, senão book.abbrev
+            const bookName = bibleData[currentBookIndex].name || bibleData[currentBookIndex].abbrev;
+            lastReadInfo.textContent = `Última leitura: ${bookName} - Capítulo ${currentChapterIndex + 1}`;
         } else {
             lastReadInfo.textContent = 'Nenhuma leitura anterior encontrada.';
         }
