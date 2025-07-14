@@ -1,6 +1,6 @@
 [
   {
-    "chapter": "Gênesis",
+    "abbrev": "Gênesis",
     "chapters": [
       [
         "No princípio criou Deus o céu e a terra.",
@@ -1638,7 +1638,7 @@
     ]
   },
   {
-    "chapter": "Êxodo",
+    "abbrev": "Êxodo",
     "chapters": [
       [
         "Estes pois são os nomes dos filhos de Israel, que entraram no Egito com Jacó; cada um entrou com sua casa:",
@@ -2936,7 +2936,7 @@
     ]
   },
   {
-    "chapter": "Levítico",
+    "abbrev": "Levítico",
     "chapters": [
       [
         "E chamou o SENHOR a Moisés, e falou com ele da tenda da congregação, dizendo:",
@@ -3854,7 +3854,7 @@
     ]
   },
   {
-    "chapter": "Números",
+    "abbrev": "Números",
     "chapters": [
       [
         "Falou mais o SENHOR a Moisés no deserto de Sinai, na tenda da congregação, no primeiro dia do segundo mês, no segundo ano da sua saída da terra do Egito, dizendo:",
@@ -5219,7 +5219,7 @@
     ]
   },
   {
-    "chapter": "Deuteronômio",
+    "abbrev": "Deuteronômio",
     "chapters": [
       [
         "Estas são as palavras que Moisés falou a todo o Israel além do Jordão, no deserto, na planície defronte do Mar Vermelho, entre Parã e Tôfel, e Labã, e Hazerote, e Di-Zaabe.",
@@ -6251,7 +6251,7 @@
     ]
   },
   {
-    "chapter": "Josué",
+    "abbrev": "Josué",
     "chapters": [
       [
         "E sucedeu depois da morte de Moisés, servo do SENHOR, que o SENHOR falou a Josué, filho de Num, servo de Moisés, dizendo:",
@@ -6962,7 +6962,7 @@
     ]
   },
   {
-    "chapter": "Juízes",
+    "abbrev": "Juízes",
     "chapters": [
       [
         "E sucedeu, depois da morte de Josué, que os filhos de Israel perguntaram ao SENHOR, dizendo: Quem dentre nós primeiro subirá aos cananeus, para pelejar contra eles?",
@@ -7628,7 +7628,7 @@
     ]
   },
   {
-    "chapter": "Rute",
+    "abbrev": "Rute",
     "chapters": [
       [
         "E sucedeu que, nos dias em que os juízes julgavam, houve uma fome na terra; por isso um homem de Belém de Judá saiu a peregrinar nos campos de Moabe, ele e sua mulher, e seus dois filhos;",
@@ -7726,7 +7726,7 @@
     ]
   },
   {
-    "chapter": "1 Samuel",
+    "abbrev": "1 Samuel",
     "chapters": [
       [
         "Houve um homem de Ramataim-Zofim, da montanha de Efraim, cujo nome era Elcana, filho de Jeroão, filho de Eliú, filho de Toú, filho de Zufe, efrateu.",
@@ -8604,7 +8604,7 @@
     ]
   },
   {
-    "chapter": "2 Samuel",
+    "abbrev": "2 Samuel",
     "chapters": [
       [
         "E sucedeu que, depois da morte de Saul, voltando Davi da derrota dos amalequitas, ficou dois dias em Ziclague;",
@@ -9352,7 +9352,7 @@
     ]
   },
   {
-    "chapter": "1 Reis",
+    "abbrev": "1 Reis",
     "chapters": [
       [
         "Sendo, pois, o rei Davi já velho, e entrado em dias, cobriam-no de roupas, porém não se aquecia.",
@@ -10218,7 +10218,7 @@
     ]
   },
   {
-    "chapter": "2 Reis",
+    "abbrev": "2 Reis",
     "chapters": [
       [
         "E depois da morte de Acabe, Moabe se rebelou contra Israel.",
@@ -10992,7 +10992,7 @@
     ]
   },
   {
-    "chapter": "1 Crônicas",
+    "abbrev": "1 Crônicas",
     "chapters": [
       [
         "Adão, Sete, Enos,",
@@ -11997,7 +11997,7 @@
     ]
   },
   {
-    "chapter": "2 Crônicas",
+    "abbrev": "2 Crônicas",
     "chapters": [
       [
         "Salomão, filho de Davi, fortaleceu-se no seu reino; e o SENHOR seu Deus era com ele, e o engrandeceu sobremaneira.",
@@ -12896,7 +12896,7 @@
     ]
   },
   {
-    "chapter": "Esdras",
+    "abbrev": "Esdras",
     "chapters": [
       [
         "No primeiro ano de Ciro, rei da Pérsia (para que se cumprisse a palavra do SENHOR, pela boca de Jeremias), despertou o SENHOR o espírito de Ciro, rei da Pérsia, o qual fez passar pregão por todo o seu reino, como também por escrito, dizendo:",
@@ -13201,7 +13201,7 @@
     ]
   },
   {
-    "chapter": "Neemias",
+    "abbrev": "Neemias",
     "chapters": [
       [
         "As palavras de Neemias, filho de Hacalias. E sucedeu no mês de Quislev, no ano vigésimo, estando eu em Susã, a fortaleza,",
@@ -13638,7 +13638,7 @@
     ]
   },
   {
-    "chapter": "Ester",
+    "abbrev": "Ester",
     "chapters": [
       [
         "E sucedeu nos dias de Assuero, o Assuero que reinou desde a India até a Etiópia, sobre cento e vinte e sete províncias,",
@@ -13830,7 +13830,7 @@
     ]
   },
   {
-    "chapter": "Jó",
+    "abbrev": "Jó",
     "chapters": [
       [
         "Havia um homem na terra de Uz, cujo nome era Jó; e era este homem íntegro, reto e temente a Deus e desviava-se do mal.",
@@ -14989,7 +14989,7 @@
     ]
   },
   {
-    "chapter": "Salmos",
+    "abbrev": "Salmos",
     "chapters": [
       [
         "Bem-aventurado o homem que não anda segundo o conselho dos ímpios, nem se detém no caminho dos pecadores, nem se assenta na roda dos escarnecedores.",
@@ -17755,7 +17755,7 @@
     ]
   },
   {
-    "chapter": "Provérbios",
+    "abbrev": "Provérbios",
     "chapters": [
       [
         "Provérbios de Salomão, filho de Davi, rei de Israel;",
@@ -18737,7 +18737,7 @@
     ]
   },
   {
-    "chapter": "Eclesiastes",
+    "abbrev": "Eclesiastes",
     "chapters": [
       [
         "Palavras do pregador, filho de Davi, rei em Jerusalém.",
@@ -18988,7 +18988,7 @@
     ]
   },
   {
-    "chapter": "Cânticos",
+    "abbrev": "Cânticos",
     "chapters": [
       [
         "cântico dos cânticos, que é de Salomão.",
@@ -19126,7 +19126,7 @@
     ]
   },
   {
-    "chapter": "Isaías",
+    "abbrev": "Isaías",
     "chapters": [
       [
         "Visão de Isaías, filho de Amós, que ele teve a respeito de Judá e Jerusalém, nos dias de Uzias, Jotão, Acaz, e Ezequias, reis de Judá.",
@@ -20555,7 +20555,7 @@
     ]
   },
   {
-    "chapter": "Jeremias",
+    "abbrev": "Jeremias",
     "chapters": [
       [
         "Palavras de Jeremias, filho de Hilquias, um dos sacerdotes que estavam em Anatote, na terra de Benjamim;",
@@ -22028,7 +22028,7 @@
     ]
   },
   {
-    "chapter": "Lamentações de Jeremias",
+    "abbrev": "Lamentações de Jeremias",
     "chapters": [
       [
         "Como está sentada solitária aquela cidade, antes tão populosa! Tornou-se como viúva, a que era grande entre as nações! A que era princesa entre as províncias, tornou-se tributária!",
@@ -22197,7 +22197,7 @@
     ]
   },
   {
-    "chapter": "Ezequiel",
+    "abbrev": "Ezequiel",
     "chapters": [
       [
         "E aconteceu no trigésimo ano, no quarto mês, no quinto dia do mês, que estando eu no meio dos cativos, junto ao rio Quebar, se abriram os céus, e eu tive visões de Deus.",
@@ -23571,7 +23571,7 @@
     ]
   },
   {
-    "chapter": "Daniel",
+    "abbrev": "Daniel",
     "chapters": [
       [
         "No ano terceiro do reinado de Jeoiaquim, rei de Judá, veio Nabucodonosor, rei de babilônia, a Jerusalém, e a sitiou.",
@@ -23957,7 +23957,7 @@
     ]
   },
   {
-    "chapter": "Oséias",
+    "abbrev": "Oséias",
     "chapters": [
       [
         "Palavra do SENHOR, que foi dirigida a Oséias, filho de Beeri, nos dias de Uzias, Jotão, Acaz, Ezequias, reis de Judá, e nos dias de Jeroboão, filho de Joás, rei de Israel.",
@@ -24187,7 +24187,7 @@
     ]
   },
   {
-    "chapter": "Joel",
+    "abbrev": "Joel",
     "chapters": [
       [
         "Palavra do SENHOR, que foi dirigida a Joel, filho de Petuel.",
@@ -24271,7 +24271,7 @@
     ]
   },
   {
-    "chapter": "Amós",
+    "abbrev": "Amós",
     "chapters": [
       [
         "As palavras de Amós, que estava entre os pastores de Tecoa, as quais viu a respeito de Israel, nos dias de Uzias, rei de Judá, e nos dias de Jeroboão, filho de Joás, rei de Israel, dois anos antes do terremoto.",
@@ -24440,7 +24440,7 @@
     ]
   },
   {
-    "chapter": "Obadias",
+    "abbrev": "Obadias",
     "chapters": [
       [
         "Visão de Obadias: Assim diz o Senhor DEUS a respeito de Edom: Temos ouvido a pregação do SENHOR, e foi enviado aos gentios um emissário, dizendo: Levantai-vos, e levantemo-nos contra ela para a guerra.",
@@ -24468,7 +24468,7 @@
     ]
   },
   {
-    "chapter": "Jonas",
+    "abbrev": "Jonas",
     "chapters": [
       [
         "E veio a palavra do SENHOR a Jonas, filho de Amitai, dizendo:",
@@ -24529,7 +24529,7 @@
     ]
   },
   {
-    "chapter": "Miquéias",
+    "abbrev": "Miquéias",
     "chapters": [
       [
         "Palavra do SENHOR, que veio a Miquéias, morastita, nos dias de Jotão, Acaz e Ezequias, reis de Judá, a qual ele viu sobre Samaria e Jerusalém.",
@@ -24653,7 +24653,7 @@
     ]
   },
   {
-    "chapter": "Naum",
+    "abbrev": "Naum",
     "chapters": [
       [
         "Peso de Nínive. Livro da visão de Naum, o elcosita.",
@@ -24711,7 +24711,7 @@
     ]
   },
   {
-    "chapter": "Habacuque",
+    "abbrev": "Habacuque",
     "chapters": [
       [
         "O peso que viu o profeta Habacuque.",
@@ -24778,7 +24778,7 @@
     ]
   },
   {
-    "chapter": "Sofonias",
+    "abbrev": "Sofonias",
     "chapters": [
       [
         "Palavra do SENHOR, que veio a Sofonias, filho de Cusi, filho de Gedalias, filho de Amarias, filho de Ezequias, nos dias de Josias, filho de Amom, rei de Judá.",
@@ -24842,7 +24842,7 @@
     ]
   },
   {
-    "chapter": "Ageu",
+    "abbrev": "Ageu",
     "chapters": [
       [
         "No segundo ano do rei Dario, no sexto mês, no primeiro dia do mês, veio a palavra do SENHOR, por intermédio do profeta Ageu, a Zorobabel, filho de Sealtiel, governador de Judá, e a Josué, filho de Jozadaque, o sumo sacerdote, dizendo:",
@@ -24889,7 +24889,7 @@
     ]
   },
   {
-    "chapter": "Zacarias",
+    "abbrev": "Zacarias",
     "chapters": [
       [
         "No oitavo mês do segundo ano de Dario veio a palavra do SENHOR ao profeta Zacarias, filho de Baraquias, filho de Ido, dizendo:",
@@ -25133,7 +25133,7 @@
     ]
   },
   {
-    "chapter": "Malaquias",
+    "abbrev": "Malaquias",
     "chapters": [
       [
         "Peso da palavra do SENHOR contra Israel, por intermédio de Malaquias.",
@@ -25201,7 +25201,7 @@
     ]
   },
   {
-    "chapter": "Mateus",
+    "abbrev": "Mateus",
     "chapters": [
       [
         "Livro da geração de Jesus Cristo, filho de Davi, filho de Abraão.",
@@ -26333,7 +26333,7 @@
     ]
   },
   {
-    "chapter": "Marcos",
+    "abbrev": "Marcos",
     "chapters": [
       [
         "Princípio do Evangelho de Jesus Cristo, Filho de Deus;",
@@ -27048,7 +27048,7 @@
     ]
   },
   {
-    "chapter": "Lucas",
+    "abbrev": "Lucas",
     "chapters": [
       [
         "Tendo, pois, muitos empreendido pôr em ordem a narração dos fatos que entre nós se cumpriram,",
@@ -28252,7 +28252,7 @@
     ]
   },
   {
-    "chapter": "João",
+    "abbrev": "João",
     "chapters": [
       [
         "No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus.",
@@ -29178,7 +29178,7 @@
     ]
   },
   {
-    "chapter": "Atos",
+    "abbrev": "Atos",
     "chapters": [
       [
         "Fiz o primeiro tratado, ó Teófilo, acerca de tudo que Jesus começou, não só a fazer, mas a ensinar,",
@@ -30246,7 +30246,7 @@
     ]
   },
   {
-    "chapter": "Romanos",
+    "abbrev": "Romanos",
     "chapters": [
       [
         "Paulo, servo de Jesus Cristo, chamado para apóstolo, separado para o evangelho de Deus.",
@@ -30716,7 +30716,7 @@
     ]
   },
   {
-    "chapter": "1 Coríntios",
+    "abbrev": "1 Coríntios",
     "chapters": [
       [
         "Paulo (chamado apóstolo de Jesus Cristo, pela vontade de Deus), e o irmão Sóstenes,",
@@ -31190,7 +31190,7 @@
     ]
   },
   {
-    "chapter": "2 Coríntios",
+    "abbrev": "2 Coríntios",
     "chapters": [
       [
         "Paulo, apóstolo de Jesus Cristo, pela vontade de Deus, e o irmão Timóteo, à igreja de Deus, que está em Corinto, com todos os santos que estão em toda a Acaia.",
@@ -31478,7 +31478,7 @@
     ]
   },
   {
-    "chapter": "Gálatas",
+    "abbrev": "Gálatas",
     "chapters": [
       [
         "Paulo, apóstolo (não da parte dos homens, nem por homem algum, mas por Jesus Cristo, e por Deus Pai, que o ressuscitou dentre os mortos),",
@@ -31644,7 +31644,7 @@
     ]
   },
   {
-    "chapter": "Efésios",
+    "abbrev": "Efésios",
     "chapters": [
       [
         "Paulo, apóstolo de Jesus Cristo, pela vontade de Deus, aos santos que estão em Éfeso, e fiéis em Cristo Jesus:",
@@ -31816,7 +31816,7 @@
     ]
   },
   {
-    "chapter": "Filipenses",
+    "abbrev": "Filipenses",
     "chapters": [
       [
         "Paulo e Timóteo, servos de Jesus Cristo, a todos os santos em Cristo Jesus, que estão em Filipos, com os bispos e diáconos:",
@@ -31933,7 +31933,7 @@
     ]
   },
   {
-    "chapter": "Colossenses",
+    "abbrev": "Colossenses",
     "chapters": [
       [
         "Paulo, apóstolo de Jesus Cristo, pela vontade de Deus, e o irmão Timóteo,",
@@ -32041,7 +32041,7 @@
     ]
   },
   {
-    "chapter": "1 Tessalonicenses",
+    "abbrev": "1 Tessalonicenses",
     "chapters": [
       [
         "Paulo, e Silvano, e Timóteo, à igreja dos tessalonicenses em Deus, o Pai, e no Senhor Jesus Cristo: Graça e paz tenhais de Deus nosso Pai e do Senhor Jesus Cristo.",
@@ -32145,7 +32145,7 @@
     ]
   },
   {
-    "chapter": "2 Tessalonicenses",
+    "abbrev": "2 Tessalonicenses",
     "chapters": [
       [
         "Paulo, e Silvano, e Timóteo, à igreja dos tessalonicenses, em Deus nosso Pai, e no Senhor Jesus Cristo:",
@@ -32203,7 +32203,7 @@
     ]
   },
   {
-    "chapter": "1 Timóteo",
+    "abbrev": "1 Timóteo",
     "chapters": [
       [
         "Paulo, apóstolo de Jesus Cristo, segundo o mandado de Deus, nosso Salvador, e do Senhor Jesus Cristo, esperança nossa,",
@@ -32333,7 +32333,7 @@
     ]
   },
   {
-    "chapter": "2 Timóteo",
+    "abbrev": "2 Timóteo",
     "chapters": [
       [
         "Paulo, apóstolo de Jesus Cristo, pela vontade de Deus, segundo a promessa da vida que está em Cristo Jesus,",
@@ -32429,7 +32429,7 @@
     ]
   },
   {
-    "chapter": "Tito",
+    "abbrev": "Tito",
     "chapters": [
       [
         "Paulo, servo de Deus, e apóstolo de Jesus Cristo, segundo a fé dos eleitos de Deus, e o conhecimento da verdade, que é segundo a piedade,",
@@ -32486,7 +32486,7 @@
     ]
   },
   {
-    "chapter": "Filemom",
+    "abbrev": "Filemom",
     "chapters": [
       [
         "Paulo, prisioneiro de Jesus Cristo, e o irmão Timóteo, ao amado Filemom, nosso cooperador,",
@@ -32518,7 +32518,7 @@
     ]
   },
   {
-    "chapter": "Hebreus",
+    "abbrev": "Hebreus",
     "chapters": [
       [
         "Havendo Deus antigamente falado muitas vezes, e de muitas maneiras, aos pais, pelos profetas, a nós falou-nos nestes últimos dias pelo Filho,",
@@ -32852,7 +32852,7 @@
     ]
   },
   {
-    "chapter": "Tiago",
+    "abbrev": "Tiago",
     "chapters": [
       [
         "Tiago, servo de Deus, e do Senhor Jesus Cristo, às doze tribos que andam dispersas, saúde.",
@@ -32975,7 +32975,7 @@
     ]
   },
   {
-    "chapter": "1 Pedro",
+    "abbrev": "1 Pedro",
     "chapters": [
       [
         "Pedro, apóstolo de Jesus Cristo, aos estrangeiros dispersos no Ponto, Galácia, Capadócia, Ásia e Bitínia;",
@@ -33095,7 +33095,7 @@
     ]
   },
   {
-    "chapter": "2 Pedro",
+    "abbrev": "2 Pedro",
     "chapters": [
       [
         "Simão Pedro, servo e apóstolo de Jesus Cristo, aos que conosco alcançaram fé igualmente preciosa pela justiça do nosso Deus e Salvador Jesus Cristo:",
@@ -33167,7 +33167,7 @@
     ]
   },
   {
-    "chapter": "1 João",
+    "abbrev": "1 João",
     "chapters": [
       [
         "O que era desde o princípio, o que ouvimos, o que vimos com os nossos olhos, o que temos contemplado, e as nossas mãos tocaram da Palavra da vida",
@@ -33287,7 +33287,7 @@
     ]
   },
   {
-    "chapter": "2 João",
+    "abbrev": "2 João",
     "chapters": [
       [
         "O ancião à senhora eleita, e a seus filhos, aos quais amo na verdade, e não somente eu, mas também todos os que têm conhecido a verdade,",
@@ -33307,7 +33307,7 @@
     ]
   },
   {
-    "chapter": "3 João",
+    "abbrev": "3 João",
     "chapters": [
       [
         "O presbítero ao amado Gaio, a quem em verdade eu amo.",
@@ -33329,7 +33329,7 @@
     ]
   },
   {
-    "chapter": "Judas",
+    "abbrev": "Judas",
     "chapters": [
       [
         "Judas, servo de Jesus Cristo, e irmão de Tiago, aos chamados, santificados em Deus Pai, e conservados por Jesus Cristo:",
@@ -33361,7 +33361,7 @@
     ]
   },
   {
-    "chapter": "Apocalipse",
+    "abbrev": "Apocalipse",
     "chapters": [
       [
         "Revelação de Jesus Cristo, a qual Deus lhe deu, para mostrar aos seus servos as coisas que brevemente devem acontecer; e pelo seu anjo as enviou, e as notificou a João seu servo;",
