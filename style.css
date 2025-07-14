@@ -1,22 +1,22 @@
 /* Importação de fonte do Google Fonts para uma estética aprimorada */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@400;700&display=swap');
 
 /* Definição de variáveis CSS para facilitar a manutenção e personalização */
 :root {
-    /* Cores */
-    --primary-color: #4CAF50; /* Verde principal para destaque */
-    --secondary-color: #388E3C; /* Verde mais escuro para elementos secundários */
-    --text-color: #333; /* Cor padrão para o texto principal */
-    --light-text-color: #666; /* Cor para texto mais suave, como rodapé */
-    --bg-color: #f8f9fa; /* Cor de fundo da página */
-    --card-bg-color: #ffffff; /* Cor de fundo para o contêiner principal (cartão) */
-    --border-color: #e0e0e0; /* Cor para bordas e divisores */
-    --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
-    --highlight-color: #fffacd; /* Amarelo claro para o destaque (cor de marca-texto) */
-    --highlighted-verse-bg: #fffacd; /* Cor de fundo para o versículo inteiro marcado */
+    /* Cores - Tema Bíblico (terrosos, naturais) */
+    --primary-color: #5d8f6d; /* Verde oliva suave */
+    --secondary-color: #4b7a5a; /* Verde oliva mais escuro */
+    --text-color: #3e2723; /* Marrom escuro (quase preto) */
+    --light-text-color: #795548; /* Marrom médio */
+    --bg-color: #f5f5dc; /* Bege claro (papel antigo) */
+    --card-bg-color: #fffaf0; /* Branco antigo/creme */
+    --border-color: #d7ccc8; /* Marrom claro para bordas */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra padrão */
+    --highlight-color: #ffeb3b; /* Amarelo padrão para destaque */
+    --highlighted-verse-bg: #fffde7; /* Creme claro para versículo destacado */
 
     /* Fontes */
-    --heading-font: 'Merriweather', serif; /* Fonte serifada para títulos */
+    --heading-font: 'Playfair Display', serif; /* Fonte serifada mais elegante para títulos */
     --body-font: 'Open Sans', sans-serif; /* Fonte sans-serif para o corpo do texto */
 
     /* Espaçamento */
@@ -29,23 +29,26 @@
 
 /* Tema Escuro */
 body.dark-mode {
-    --primary-color: #66bb6a;
-    --secondary-color: #4CAF50;
-    --text-color: #e0e0e0;
-    --light-text-color: #a0a0a0;
-    --bg-color: #212121;
-    --card-bg-color: #303030;
-    --border-color: #424242;
+    --primary-color: #a5d6a7; /* Verde claro para destaque no dark mode */
+    --secondary-color: #81c784; /* Verde um pouco mais escuro */
+    --text-color: #e0e0e0; /* Cinza claro para texto */
+    --light-text-color: #b0bec5; /* Cinza azulado para texto secundário */
+    --bg-color: #263238; /* Azul escuro/quase preto */
+    --card-bg-color: #37474f; /* Cinza azulado escuro para o cartão */
+    --border-color: #455a64; /* Borda mais escura */
     --shadow-color: rgba(0, 0, 0, 0.4);
-    --highlight-color: #8B8000; /* Um amarelo mais escuro para o modo escuro */
-    --highlighted-verse-bg: #8B8000; /* Cor de fundo para o versículo inteiro marcado */
+    --highlight-color: #ffd700; /* Dourado para destaque no dark mode */
+    --highlighted-verse-bg: #4a4a00; /* Um tom mais escuro de dourado/oliva escuro */
+
+    /* Seta customizada para selects no modo escuro */
+    --select-arrow-color: %23e0e0e0; /* Cor da seta para modo escuro */
 }
 
 
 /* Estilos globais para o corpo da página */
 body {
     font-family: var(--body-font); /* Aplica a fonte padrão */
-    line-height: 1.6; /* Altura da linha para melhor legibilidade */
+    line-height: 1.7; /* Altura da linha para melhor legibilidade */
     margin: 0; /* Remove margem padrão do body */
     padding: 0; /* Remove padding padrão do body */
     background-color: var(--bg-color); /* Aplica a cor de fundo definida */
@@ -68,15 +71,30 @@ header {
     color: white; /* Cor do texto branca */
     padding: var(--spacing-lg) var(--spacing-md); /* Espaçamento interno */
     text-align: center; /* Centraliza o texto */
-    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave para elevação */
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* Sombra para o texto para melhor contraste */
+    box-shadow: 0 4px 10px var(--shadow-color); /* Sombra suave para elevação */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5); /* Sombra para o texto para melhor contraste */
     transition: box-shadow 0.3s ease; /* Transição para o tema */
+    position: relative; /* Para possíveis efeitos visuais */
+    overflow: hidden; /* Para garantir que a imagem não transborde */
+}
+
+header::before { /* Adiciona uma sobreposição sutil para melhor legibilidade do texto */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2); /* Escurece a imagem um pouco */
+    z-index: 0;
 }
 
 header h1 {
     font-family: var(--heading-font); /* Aplica a fonte do título */
-    font-size: 2rem; /* Adjusted for better mobile scaling */
+    font-size: 2.2rem; /* Ajustado para mobile */
     margin: 0; /* Remove margem padrão do h1 */
+    position: relative; /* Para ficar acima do pseudo-elemento */
+    z-index: 1;
 }
 
 /* Estilos para o contêiner principal do conteúdo */
@@ -84,10 +102,11 @@ main {
     max-width: 900px; /* Largura máxima para telas maiores */
     margin: var(--spacing-md) auto; /* Centraliza o contêiner com margem superior/inferior */
     padding: var(--spacing-md); /* Adjusted padding for better mobile fit */
-    background-color: var(--card-bg-color); /* Fundo branco para o "cartão" */
-    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra aprimorada */
+    background-color: var(--card-bg-color); /* Fundo para o "cartão" */
+    box-shadow: 0 6px 20px var(--shadow-color); /* Sombra aprimorada */
     border-radius: 12px; /* Bordas arredondadas para um visual moderno */
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição para o tema */
+    border: 1px solid var(--border-color); /* Borda sutil para o cartão */
 }
 
 /* Estilos para os controles de seleção (dropdowns e botão) */
@@ -105,19 +124,20 @@ select {
     border-radius: 8px; /* Bordas arredondadas */
     font-size: 1rem; /* Tamanho da fonte */
     cursor: pointer; /* Indica que é clicável */
-    background-color: var(--card-bg-color); /* Fundo branco */
+    background-color: var(--card-bg-color); /* Fundo */
     color: var(--text-color); /* Cor do texto */
     appearance: none; /* Remove a seta padrão do navegador */
     -webkit-appearance: none; /* Compatibilidade Webkit */
     -moz-appearance: none; /* Compatibilidade Mozilla */
     /* Seta customizada usando SVG em base64 */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%233e2723" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat; /* Não repete a seta */
     background-position: right 10px center; /* Posiciona a seta à direita */
     background-size: 20px; /* Tamanho da seta */
     width: 100%; /* Ocupa 100% da largura do contêiner */
     box-sizing: border-box; /* Inclui padding e borda na largura total */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Transição para o tema */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Sombra interna sutil */
 }
 
 body.dark-mode select {
@@ -127,7 +147,7 @@ body.dark-mode select {
 select:focus {
     outline: none; /* Remove outline padrão ao focar */
     border-color: var(--primary-color); /* Borda destacada ao focar */
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Sombra suave ao focar */
+    box-shadow: 0 0 0 3px rgba(93, 143, 109, 0.3); /* Sombra suave ao focar */
 }
 
 select:disabled {
@@ -136,7 +156,13 @@ select:disabled {
     color: var(--light-text-color); /* Cor do texto mais clara */
 }
 
-/* Estilos para o botão de limpar destaques e outros botões */
+body.dark-mode select:disabled {
+    background-color: #3f4a51;
+    color: #6a7c85;
+}
+
+
+/* Estilos para o botão e outros botões */
 button {
     padding: 12px 15px;
     min-height: 48px; /* Ensure sufficient touch target size */
@@ -146,35 +172,39 @@ button {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     width: 100%;
     box-sizing: border-box;
     font-family: var(--body-font);
-    display: flex; /* Use flexbox for button content */
+    display: flex; /* Use flexbox for button content (icon + text) */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Sombra para elevação */
+}
+
+button i { /* Estilo para os ícones dentro dos botões */
+    font-size: 1.1em; /* Ligeiramente maior que o texto */
 }
 
 button:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-1px);
+    transform: translateY(-2px); /* Efeito de "levantar" */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 button:active {
-    background-color: #307a33;
+    background-color: #3f664a; /* Tom mais escuro no clique */
     transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-#clear-highlights-btn {
+#clear-highlights-btn { /* Se for reintroduzido */
     background-color: #f44336; /* Vermelho para ação de limpar */
 }
 
 #clear-highlights-btn:hover {
     background-color: #d32f2f; /* Tom mais escuro no hover */
-}
-
-#clear-highlights-btn:active {
-    background-color: #c62828;
 }
 
 /* Estilos para a área de configurações */
@@ -197,7 +227,7 @@ button:active {
 .settings select, .settings button {
     width: 100%; /* Ensure full width on mobile for settings controls */
     max-width: unset; /* Remove max-width for mobile settings */
-    min-width: 150px; /* Garante uma largura mínima */
+    /* min-width: 150px; /* Garante uma largura mínima - removido para mobile-first */
 }
 
 
@@ -207,6 +237,7 @@ button:active {
     padding-top: var(--spacing-lg); /* Espaçamento acima do texto da Bíblia */
     font-size: var(--base-font-size); /* Aplica o tamanho base da fonte */
     transition: border-top 0.3s ease; /* Transição para o tema */
+    word-wrap: break-word; /* Garante que palavras longas não causem overflow */
 }
 
 /* Estilo para cada versículo */
@@ -217,19 +248,19 @@ button:active {
     position: relative; /* Necessário para posicionamento relativo de elementos internos se necessário */
     padding: 8px var(--spacing-sm); /* Adjusted padding for better touch area and readability */
     cursor: pointer; /* Indica que o versículo é clicável */
-    border-radius: 4px; /* Pequenas bordas arredondadas para o fundo de destaque */
-    transition: background-color 0.2s ease-in-out; /* Transição suave para o destaque */
+    border-radius: 6px; /* Pequenas bordas arredondadas para o fundo de destaque */
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transição suave para o destaque */
 }
 
 /* Estilo para o versículo inteiro quando marcado */
-.highlighted { /* Esta classe foi corrigida para 'highlighted' */
+.highlighted {
     background-color: var(--highlighted-verse-bg); /* Cor amarela do marca-texto */
-    box-shadow: 0 0 5px rgba(255, 250, 205, 0.5); /* Sombra suave para dar profundidade */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidade */
 }
 
 
 .verse-number {
-    font-weight: 600; /* Texto do número do versículo mais negrito */
+    font-weight: 700; /* Texto do número do versículo mais negrito */
     margin-right: 6px; /* Espaçamento entre o número e o texto do versículo */
     color: var(--secondary-color); /* Cor de destaque para os números dos versículos */
     font-size: 0.95em; /* Ligeiramente menor que o texto do versículo */
@@ -245,9 +276,10 @@ button:active {
     padding: var(--spacing-lg);
     border: 1px dashed var(--border-color); /* Borda pontilhada para distinção */
     border-radius: 8px;
-    background-color: #f0f4f7; /* Fundo suave */
+    background-color: #fcf8e3; /* Fundo suave, levemente cremoso */
     margin-top: var(--spacing-lg);
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transição para o tema */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
 body.dark-mode .initial-message {
@@ -294,6 +326,7 @@ body.dark-mode .error-message {
     cursor: not-allowed;
     color: #888888;
     transform: none;
+    box-shadow: none;
 }
 
 body.dark-mode .chapter-navigation button:disabled {
@@ -311,6 +344,7 @@ footer {
     font-size: 0.85em;
     border-top: 1px solid var(--border-color); /* Linha divisória */
     transition: color 0.3s ease, border-top 0.3s ease; /* Transição para o tema */
+    background-color: var(--card-bg-color); /* Fundo para se misturar com o card principal */
 }
 
 /* Loading Indicator */
@@ -350,7 +384,7 @@ body.dark-mode .spinner {
 /* Estes estilos são aplicados quando a largura da tela é no mínimo 601px */
 @media (min-width: 601px) {
     header h1 {
-        font-size: 2.8rem; /* Aumenta o tamanho do título para desktop */
+        font-size: 3rem; /* Aumenta o tamanho do título para desktop */
     }
 
     main {
@@ -363,8 +397,8 @@ body.dark-mode .spinner {
         align-items: center; /* Alinha verticalmente os itens */
     }
 
-    select, #clear-highlights-btn { /* Aplica o mesmo limite de largura para selects e botão */
-        max-width: 300px; /* Limita a largura máxima individual de cada select/botão no desktop */
+    select {
+        max-width: 300px; /* Limita a largura máxima individual de cada select no desktop */
     }
 
     .settings {
@@ -383,7 +417,7 @@ body.dark-mode .spinner {
     #bible-content p.verse { /* Ajusta o seletor para pegar a classe .verse */
         font-size: 1em; /* Ajustado para 1em novamente, para ser relativo ao base-font-size */
         text-indent: 2em; /* Recuo maior da primeira linha para desktop */
-        padding: 5px; /* Restore original padding for desktop */
+        padding: 5px 8px; /* Restore original padding for desktop */
     }
 
     .chapter-navigation {
